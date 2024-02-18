@@ -1,0 +1,12 @@
+In project root directory:
+For routing : npm install react-router-dom -- learn 
+For state management :　npm install redux react-redux (If I choose Redux) -- learn 
+
+In server directory: 
+npm init -y -- learn
+For server framework : npm install express
+For MongoDB interactions: npm install mongoose -- To support transaction, rich search, document database 
+For parsing incoming request bodies : npm install body-parser
+For environment variables: npm install dotenv
+For password hashing: npm install bcryptjs
+For handling JWTs: npm install jsonwebtoken
