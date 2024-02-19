@@ -17,3 +17,24 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
+
+
+/* Database client */
+const { Pool } = require('pg');
+
+const pool = new Pool({
+user: 'postgres',
+host: 'localhost',
+database: 'fitness_tracker_app',
+password: 'nxnH9807B',
+port: 5432, // Default PostgreSQL port
+});
+
+module.exports = pool;
+
+/* Database test */
+// Query example
+pool.query('SELECT NOW()', (err, res) => {
+  console.log(err, res);
+  pool.end();
+});

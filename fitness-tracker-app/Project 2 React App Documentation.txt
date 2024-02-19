@@ -1,3 +1,5 @@
+Dependencies Installation
+
 In project root directory:
 For routing : npm install react-router-dom -- learn 
 For state management :　npm install redux react-redux (If I choose Redux) -- learn 
@@ -5,8 +7,70 @@ For state management :　npm install redux react-redux (If I choose Redux) -- le
 In server directory: 
 npm init -y -- learn
 For server framework : npm install express
-For MongoDB interactions: npm install mongoose -- To support transaction, rich search, document database 
+For PostgreSQL database: npm install pg - To secure transactions 
 For parsing incoming request bodies : npm install body-parser
 For environment variables: npm install dotenv
 For password hashing: npm install bcryptjs
-For handling JWTs: npm install jsonwebtoken
+For handling JWTs: npm install jsonwebtoken - To check integrity and authentication
+
+Project directory (suscept to changes)
+
+PERSONAL-FITNESS-TRACKER/
+|--fitness-tracker-app/
+
+SERVER-SIDE STRUCTURE
+
+|   |--server/
+|   |   |--config/
+|   |   |   |--db.js                  # Database connection configuration
+|   |   |--controllers/
+|   |   |   |--authController.js      # Authentication logic
+|   |   |   |--userController.js      # User-related operations
+|   |   |   |--fitnessController.js   # Fitness tracking operations
+|   |   |   |--dietController.js      # Dietary logging operations
+|   |   |   |--...
+|   |   |--models/
+|   |   |   |--User.js                # User model
+|   |   |   |--Exercise.js            # Exercise log model
+|   |   |   |--Diet.js                # Diet log model
+|   |   |   |--...
+|   |   |--routes/
+|   |   |   |--authRoutes.js          # Routes for authentication
+|   |   |   |--userRoutes.js          # Routes for user profile operations
+|   |   |   |--fitnessRoutes.js       # Routes for fitness tracking
+|   |   |   |--dietRoutes.js          # Routes for dietary logging
+|   |   |   |--...
+|   |   |--middleware/
+|   |   |   |--authMiddleware.js      # Middleware for authentication and authorization
+|   |   |--utils/
+|   |   |   |--apiResponse.js         # Utility for standardizing API responses
+|   |   |--.env                       # Environment variables (e.g., database URI, secret keys)
+|   |   |--index.js                   # Main server file to setup and start the server
+
+
+FRONT-END STRUCTURE (suscept to changes)
+
+|   |--src/
+|   |   |--components/                # Reusable UI components
+|   |   |   |--Navbar/
+|   |   |   |--Footer/
+|   |   |   |--...
+|   |   |--pages/                     # Components representing entire pages
+|   |   |   |--Home.js
+|   |   |   |--Login.js
+|   |   |   |--Signup.js
+|   |   |   |--Dashboard.js
+|   |   |   |--...
+|   |   |--services/                  # Services for HTTP requests (e.g., authentication, fetching data)
+|   |   |   |--authService.js
+|   |   |   |--userService.js
+|   |   |   |--fitnessService.js
+|   |   |   |--dietService.js
+|   |   |   |--...
+|   |   |--hooks/                     # Custom React hooks (if any)
+|   |   |--context/                   # Context API for global state management (if using Context API)
+|   |   |   |--AuthContext.js
+|   |   |   |--FitnessContext.js
+|   |   |   |--DietContext.js
+|   |   |--App.js                     # Main application component
+|   |   |--index.js                   # Entry point for React, renders App component
