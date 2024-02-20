@@ -4,6 +4,7 @@ In project root directory:
 For routing : npm install react-router-dom -- learn 
 For state management :　npm install redux react-redux (If I choose Redux) -- learn 
 
+
 In server directory: 
 npm init -y -- learn
 For server framework : npm install express
@@ -12,65 +13,104 @@ For parsing incoming request bodies : npm install body-parser
 For environment variables: npm install dotenv
 For password hashing: npm install bcryptjs
 For handling JWTs: npm install jsonwebtoken - To check integrity and authentication
+For cors: npm install cors
+For input validation: npm install joi
+For testing : npm install --save-dev jest supertest - To check HTTP servers
 
 Project directory (suscept to changes)
 
 PERSONAL-FITNESS-TRACKER/
 |--fitness-tracker-app/
-
-SERVER-SIDE STRUCTURE
-
+|   |--node_modules/
+|   |--public/
 |   |--server/
 |   |   |--config/
 |   |   |   |--db.js                  # Database connection configuration
+|   |   |--validation/
+|   |   |   |--userValidation.js      # Input validation
 |   |   |--controllers/
 |   |   |   |--authController.js      # Authentication logic
-|   |   |   |--userController.js      # User-related operations
-|   |   |   |--fitnessController.js   # Fitness tracking operations
-|   |   |   |--dietController.js      # Dietary logging operations
-|   |   |   |--...
+|   |   |   |--activityController.js  # Basic activity tracking operations
+|   |   |   |--workoutController.js   # Workout logs operations
+|   |   |   |--dietController.js      # Diet tracking operations
+|   |   |   |--waterIntakeController.js # Water intake tracking
+|   |   |   |--planController.js      # Workout plan operations
+|   |   |   |--subscriptionController.js # Manage subscription and premium features
 |   |   |--models/
 |   |   |   |--User.js                # User model
-|   |   |   |--Exercise.js            # Exercise log model
+|   |   |   |--Activity.js            # Model for tracking activities
+|   |   |   |--Workout.js             # Workout log model
 |   |   |   |--Diet.js                # Diet log model
-|   |   |   |--...
+|   |   |   |--WaterIntake.js         # Water intake model
+|   |   |   |--Plan.js                # Workout plan model
 |   |   |--routes/
-|   |   |   |--authRoutes.js          # Routes for authentication
-|   |   |   |--userRoutes.js          # Routes for user profile operations
-|   |   |   |--fitnessRoutes.js       # Routes for fitness tracking
-|   |   |   |--dietRoutes.js          # Routes for dietary logging
-|   |   |   |--...
+|   |   |   |--userRoutes.js          # Routes for user profile and settings
+|   |   |   |--activityRoutes.js      # Routes for activity tracking
+|   |   |   |--workoutRoutes.js       # Routes for workout logs
+|   |   |   |--dietRoutes.js          # Routes for diet tracking
+|   |   |   |--waterIntakeRoutes.js   # Routes for water intake tracking
+|   |   |   |--planRoutes.js          # Routes for accessing workout plans
+|   |   |   |--subscriptionRoutes.js  # Routes for managing subscriptions
 |   |   |--middleware/
 |   |   |   |--authMiddleware.js      # Middleware for authentication and authorization
 |   |   |--utils/
 |   |   |   |--apiResponse.js         # Utility for standardizing API responses
-|   |   |--.env                       # Environment variables (e.g., database URI, secret keys)
-|   |   |--index.js                   # Main server file to setup and start the server
-
-
-FRONT-END STRUCTURE (suscept to changes)
-
+|   |   |   |--subscriptionCheck.js   # Utility to check subscription status for premium features
+|   |   |--.env                       # Environment variables
+|   |   |--index.js                   # Main server file
 |   |--src/
-|   |   |--components/                # Reusable UI components
+|   |   |--components/                  # Reusable UI Components
 |   |   |   |--Navbar/
 |   |   |   |--Footer/
-|   |   |   |--...
-|   |   |--pages/                     # Components representing entire pages
+|   |   |   |--ActivityTracker/
+|   |   |   |--WorkoutLogger/
+|   |   |   |--DietTracker/
+|   |   |   |--WaterTracker/
+|   |   |   |--WorkoutPlan/
+|   |   |   |--Subscription/
+|   |   |--pages/                       # Components representing entire pages
 |   |   |   |--Home.js
+|   |   |   |--Dashboard.js
+|   |   |   |--Settings.js
 |   |   |   |--Login.js
 |   |   |   |--Signup.js
-|   |   |   |--Dashboard.js
-|   |   |   |--...
-|   |   |--services/                  # Services for HTTP requests (e.g., authentication, fetching data)
+|   |   |   |--Premium.js               # Page for premium feature introduction and subscription
+|   |   |--services/                    # Services for HTTP requests (e.g., authentication, fetching data)
 |   |   |   |--authService.js
-|   |   |   |--userService.js
-|   |   |   |--fitnessService.js
+|   |   |   |--activityService.js
+|   |   |   |--workoutService.js
 |   |   |   |--dietService.js
-|   |   |   |--...
-|   |   |--hooks/                     # Custom React hooks (if any)
-|   |   |--context/                   # Context API for global state management (if using Context API)
+|   |   |   |--waterService.js
+|   |   |   |--planService.js
+|   |   |   |--subscriptionService.js   # Service for managing subscriptions
+|   |   |--hooks/                       # React hooks
+|   |   |--context/                     # Context API for global state management
 |   |   |   |--AuthContext.js
-|   |   |   |--FitnessContext.js
-|   |   |   |--DietContext.js
-|   |   |--App.js                     # Main application component
-|   |   |--index.js                   # Entry point for React, renders App component
+|   |   |   |--UserContext.js           # Manage user data and state
+|   |   |--App.js                       # Main application component
+|   |   |--index.js                     # Entry point for React, renders App component
+|   |--.gitignore
+|   |--package-lock.json
+|   |--package.json
+
+
+
+Features
+
+Free Features
+
+Basic Activity Tracking: Steps, distance, calories burned, active minutes
+Workout Logs: Users can log their workouts manually, choosing from a list of activities
+Basic Diet Tracking: Calorie counting and simple food logging
+Water Intake Tracking: To encourage hydration
+Limited Access to Workout Plans: Offer some generic workout plans for different goals (weight loss, muscle gain, etc.)
+
+Premium Features
+
+Personalized workout plans: Tailored to the user's fitness level, goals, and preferences. Include AI or expert-created plans that adapt over time
+Advanced Diet Planning and Tracking: Custom meal plans, nutrition advice, macro tracking, and integration with popular food tracking 
+Advanced Analytics and Insights: More in-depth analysis of performance, health trends, and predictive suggestions based on the user's activity and goals
+Mindfulness and Wellness Content: Access to meditation, yoga sessions, and wellness articles to support mental health
+Sleep Tracking and Analysis: Advanced features for monitoring sleep patterns and providing improvement suggestions
+
+Cross-origin resource sharing (CORS) is an extension of the same-origin policy. You need it for authorized resource sharing with external third parties. For example, you need CORS when you want to pull data from external APIs that are public or authorized
