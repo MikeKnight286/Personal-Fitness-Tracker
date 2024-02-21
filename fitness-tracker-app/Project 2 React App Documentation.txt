@@ -11,7 +11,7 @@ For server framework : npm install express
 For PostgreSQL database: npm install pg - To secure transactions 
 For parsing incoming request bodies : npm install body-parser
 For environment variables: npm install dotenv
-For password hashing: npm install bcryptjs
+For password hashing: npm install bcryptjs bcryypt
 For handling JWTs: npm install jsonwebtoken - To check integrity and authentication
 For cors: npm install cors
 For input validation: npm install joi

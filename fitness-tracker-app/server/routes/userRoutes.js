@@ -1,10 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const authController = require('../controllers/authController');
+const userController = require('../controllers/userController');
+const verifyToken = require('../middleware/verifyToken'); 
 
-// Define some routes
-router.get('/', (req, res) => {
-  res.send('User route');
-});
+// Authentication routes
+router.post('/register', authController.register);
+router.post('/login', authController.login);
 
-// Export the router
+// User profile routes
+router.get('/profile', verifyToken, userController.getUserProfile);
+router.put('/profile', verifyToken, userController.updateUserProfile);
+
 module.exports = router;
