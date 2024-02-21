@@ -6,20 +6,20 @@ const crypto = require('crypto'); // For generating the reset token
 const sendEmail = require('../utils/emailService');
 
 exports.register = async (req, res) => {
-    // Validate the user input
-    const { error } = registerValidation(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
-
-    // Checking if the user is already in the database
-    const emailExist = await User.findByEmail(req.body.email);
-    if (emailExist) return res.status(400).send('Email already exists');
-
-    // Create a new user
     try {
+        // Validate user input
+        const { error } = registerValidation(req.body);
+        if (error) throw { status: 400, message: error.details[0].message };
+
+        // Checking if email exists
+        const emailExist = await User.findByEmail(req.body.email);
+        if (emailExist) throw { status: 400, message: 'Email already exists' };
+
+        // Create user 
         const newUser = await User.create(req.body);
-        res.send({ user: newUser.id });
+        res.json({ user: newUser.id });
     } catch (err) {
-        res.status(400).send(err);
+        res.status(err.status || 500).send(err.message || 'Server error');
     }
 };
 
@@ -46,17 +46,25 @@ exports.requestReset = async (req, res) => {
     const { email } = req.body;
     const user = await User.findByEmail(email);
     if (!user) {
-        // To avoid email enumeration, you might want to always return a success message
         return res.status(200).send('If an account with that email exists, we have sent a password reset email.');
     }
 
-    // Generate a reset token
-    const resetToken = await User.generateResetToken(email);
-    // Here, you should send the resetToken to the user's email
-    // For simplicity, we'll just log it
-    console.log(`Generated reset token for ${email}: ${resetToken}`);
+    try {
+        const resetToken = await User.generateResetToken(email);
+        const resetUrl = `${req.protocol}://${req.get('host')}/api/users/reset-password/${resetToken}`;
 
-    res.status(200).send('Password reset token has been sent to your email.');
+        await sendEmail({
+            email: user.email,
+            subject: 'Password Reset Request',
+            message: 'You are receiving this email because we received a password reset request for your account.',
+            html: `Please click on the following link, or paste it into your browser to complete the process: <a href="${resetUrl}">${resetUrl}</a>`
+        });
+
+        res.status(200).send('Password reset token has been sent to your email.');
+    } catch (error) {
+        console.error('Email send error:', error);
+        res.status(500).send('Error sending password reset email.');
+    }
 };
 
 // Handle password resetting

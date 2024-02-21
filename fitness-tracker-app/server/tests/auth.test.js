@@ -1,10 +1,11 @@
 const request = require('supertest');
 const app = require('server/index'); // Adjust this path to where your Express app is exported
 const pool = require('server/config/db'); // For database cleanup
+const testemail = process.env.TEST_EMAIL // Load test email from environment variables
 
 // Cleanup function to delete test users
 const cleanUpDatabase = async () => {
-    await pool.query('DELETE FROM users WHERE email = $1', ['testuser@example.com']);
+    await pool.query('DELETE FROM users WHERE email = $1', [testemail]);
 };
 
 describe('Authentication Endpoints', () => {
@@ -17,7 +18,7 @@ describe('Authentication Endpoints', () => {
       .post('/api/users/register')
       .send({
         username: 'testuser',
-        email: 'testuser@example.com',
+        email: testemail,
         password: 'password123',
       });
     expect(res.statusCode).toEqual(200);
@@ -28,7 +29,7 @@ describe('Authentication Endpoints', () => {
     const res = await request(app)
       .post('/api/users/login')
       .send({
-        email: 'testuser@example.com',
+        email: testemail,
         password: 'password123',
       });
     expect(res.statusCode).toEqual(200);
@@ -48,7 +49,7 @@ describe('Password Reset Endpoints', () => {
       // Assuming the user already exists from the previous test
       const res = await request(app)
           .post('/api/users/reset-request')
-          .send({ email: 'testuser@example.com' });
+          .send({ email: testemail });
 
       expect(res.statusCode).toEqual(200);
       expect(res.text).toContain('Password reset token has been sent to your email.');
@@ -57,10 +58,10 @@ describe('Password Reset Endpoints', () => {
       // For testing purposes, access the password reset token from database
       // Since there are no real emails in this test, simulate obtaining a token
       // This would be replaced with the method of retrieving the token
-      const dbResponse = await pool.query('SELECT reset_token FROM users WHERE email = $1', ['testuser@example.com']);
+      const dbResponse = await pool.query('SELECT reset_token FROM users WHERE email = $1', [testemail]);
       resetToken = dbResponse.rows[0].reset_token;
       expect(resetToken).not.toBeNull();
-  });
+  }, 10000);
 
   it('should reset the password using the reset token', async () => {
       const newPassword = 'newSecurePassword123';
@@ -78,7 +79,7 @@ describe('Password Reset Endpoints', () => {
       const loginResponse = await request(app)
           .post('/api/users/login')
           .send({
-              email: 'testuser@example.com',
+              email: testemail,
               password: newPassword,
           });
 
