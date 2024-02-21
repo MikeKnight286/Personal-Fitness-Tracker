@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require('joi'); // for input validation
 
 const registerValidation = (data) => {
     const schema = Joi.object({

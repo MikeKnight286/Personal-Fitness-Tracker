@@ -12,4 +12,10 @@ router.post('/login', authController.login);
 router.get('/profile', verifyToken, userController.getUserProfile);
 router.put('/profile', verifyToken, userController.updateUserProfile);
 
+// Route to request a password reset
+router.post('/reset-request', authController.requestReset);
+
+// Route to reset the password
+router.post('/reset-password', authController.resetPassword);
+
 module.exports = router;

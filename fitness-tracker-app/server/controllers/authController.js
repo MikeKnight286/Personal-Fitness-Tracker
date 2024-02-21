@@ -2,6 +2,8 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { registerValidation, loginValidation } = require('server/validation/userValidation');
+const crypto = require('crypto'); // For generating the reset token
+const sendEmail = require('../utils/emailService');
 
 exports.register = async (req, res) => {
     // Validate the user input
@@ -38,3 +40,33 @@ exports.login = async (req, res) => {
     const token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET);
     res.header('auth-token', token).send('Logged in!');
 };
+
+// Handle password reset request
+exports.requestReset = async (req, res) => {
+    const { email } = req.body;
+    const user = await User.findByEmail(email);
+    if (!user) {
+        // To avoid email enumeration, you might want to always return a success message
+        return res.status(200).send('If an account with that email exists, we have sent a password reset email.');
+    }
+
+    // Generate a reset token
+    const resetToken = await User.generateResetToken(email);
+    // Here, you should send the resetToken to the user's email
+    // For simplicity, we'll just log it
+    console.log(`Generated reset token for ${email}: ${resetToken}`);
+
+    res.status(200).send('Password reset token has been sent to your email.');
+};
+
+// Handle password resetting
+exports.resetPassword = async (req, res) => {
+    const { token, newPassword } = req.body;
+    try {
+        const user = await User.resetPassword(token, newPassword);
+        res.status(200).send('Your password has been updated.');
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+};
+

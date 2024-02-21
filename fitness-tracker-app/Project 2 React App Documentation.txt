@@ -16,6 +16,7 @@ For handling JWTs: npm install jsonwebtoken - To check integrity and authenticat
 For cors: npm install cors
 For input validation: npm install joi
 For testing : npm install --save-dev jest supertest - To check HTTP servers
+For email server: npm install nodemailer - Later SendGrid or Mailgun for better reliablilty and deliverability
 
 Project directory (suscept to changes)
 
@@ -52,10 +53,13 @@ PERSONAL-FITNESS-TRACKER/
 |   |   |   |--planRoutes.js          # Routes for accessing workout plans
 |   |   |   |--subscriptionRoutes.js  # Routes for managing subscriptions
 |   |   |--middleware/
-|   |   |   |--authMiddleware.js      # Middleware for authentication and authorization
+|   |   |   |--verifyToken.js         # Middleware for authentication and authorization by verifying token
 |   |   |--utils/
 |   |   |   |--apiResponse.js         # Utility for standardizing API responses
 |   |   |   |--subscriptionCheck.js   # Utility to check subscription status for premium features
+|   |   |   |--emailService.js        # Utility to send emails to users
+|   |   |--tests/
+|   |   |   |--auth.js                # Test for creating new user and logging in 
 |   |   |--.env                       # Environment variables
 |   |   |--index.js                   # Main server file
 |   |--src/

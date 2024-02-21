@@ -1,5 +1,6 @@
 const pool = require('server/config/db.js');
 const bcrypt = require('bcrypt');
+const crypto = require('crypto'); // For generating the password reset token
 
 class User {
     static async findByEmail(email) {
@@ -35,6 +36,7 @@ class User {
         }
     }
 
+    // For updating names, body metrics and goal
     static async update(id, updateData) {
         // Dynamically build the update query based on provided data
         const { firstName, lastName, gender, heightCm, weightKg, goal } = updateData;
@@ -54,6 +56,35 @@ class User {
             await pool.query('DELETE FROM users WHERE id = $1', [id]);
         } catch (error) {
             throw new Error('Error deleting user');
+        }
+    }
+
+    // Generate a password reset token and save it with the user
+    static async generateResetToken(email) {
+        const resetToken = crypto.randomBytes(20).toString('hex');
+        const expireTime = Date.now() + 3600000; // 1 hour from now
+
+        try {
+            await pool.query('UPDATE users SET reset_token = $1, reset_token_expire = $2 WHERE email = $3', [resetToken, new Date(expireTime), email]);
+            return resetToken;
+        } catch (error) {
+            throw new Error('Error generating password reset token');
+        }
+    }
+
+    // Reset the password using the token
+    static async resetPassword(token, newPassword) {
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        // update the password when token is not yet expired 
+        try {
+            const { rows } = await pool.query('UPDATE users SET password = $1, reset_token = NULL, reset_token_expire = NULL WHERE reset_token = $2 AND reset_token_expire > NOW() RETURNING *', [hashedPassword, token]);
+            if (rows.length === 0) {
+                throw new Error('Password reset token is invalid or has expired.');
+            }
+            return rows[0];
+        } catch (error) {
+            throw new Error('Error resetting password');
         }
     }
 }
