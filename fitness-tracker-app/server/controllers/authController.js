@@ -1,7 +1,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { registerValidation, loginValidation } = require('server/validation/userValidation');
+const { registerValidation, loginValidation } = require('../validation/userValidation');
 const crypto = require('crypto'); // For generating the reset token
 const sendEmail = require('../utils/emailService');
 
@@ -51,7 +51,8 @@ exports.requestReset = async (req, res) => {
 
     try {
         const resetToken = await User.generateResetToken(email);
-        const resetUrl = `${req.protocol}://${req.get('host')}/api/users/reset-password/${resetToken}`;
+        const resetUrl = `${req.protocol}://localhost:3000/reset-password?token=${resetToken}`;
+
 
         await sendEmail({
             email: user.email,

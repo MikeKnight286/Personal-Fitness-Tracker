@@ -1,8 +1,8 @@
-// src/pages/Login.js
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
 
 function Login() {
     const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -32,6 +32,9 @@ function Login() {
                 <input type="password" name="password" placeholder="Password" value={credentials.password} onChange={handleChange} required />
                 <button type="submit">Login</button>
             </form>
+            <p>
+                <Link to="/password-reset-request">Forgot Password?</Link>
+            </p>
         </div>
     );
 }

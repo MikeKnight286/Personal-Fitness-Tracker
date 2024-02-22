@@ -1,13 +1,14 @@
 Dependencies Installation
 
 In project root directory:
+To start app: npm start
 For routing : npm install react-router-dom -- learn 
 For state management :　npm install redux react-redux (If I choose Redux) -- learn 
 For fetching resources from backend: npm install axios react-router-dom
 
 
 In server directory: 
-npm init -y -- learn
+To start backend server: node index.js
 For server framework : npm install express
 For PostgreSQL database: npm install pg - To secure transactions 
 For parsing incoming request bodies : npm install body-parser
@@ -100,7 +101,6 @@ PERSONAL-FITNESS-TRACKER/
 |   |--.gitignore
 |   |--package-lock.json
 |   |--package.json
-
 
 
 Features

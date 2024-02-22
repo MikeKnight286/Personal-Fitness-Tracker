@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors'); // For authorized sharing resources from external API
 const app = express();
+const path = require('path');
 const PORT = process.env.PORT || 5000;
 
 // Modularized Routes
@@ -32,6 +33,13 @@ app.use('/api/users', userRoutes);
 app.get('/', (req, res) => {
     res.send('Hello World from the Fitness Tracker App Server!');
 });
+
+// Serves static files
+app.use(express.static(path.join(__dirname, 'build')));
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+});
+
 
 // Listening on the port
 app.listen(PORT, () => {

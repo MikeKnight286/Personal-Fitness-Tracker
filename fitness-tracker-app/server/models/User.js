@@ -1,4 +1,4 @@
-const pool = require('server/config/db.js');
+const pool = require('../config/db.js');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto'); // For generating the password reset token
 
