@@ -3,6 +3,7 @@ Dependencies Installation
 In project root directory:
 For routing : npm install react-router-dom -- learn 
 For state management :　npm install redux react-redux (If I choose Redux) -- learn 
+For fetching resources from backend: npm install axios react-router-dom
 
 
 In server directory: 
@@ -37,6 +38,7 @@ PERSONAL-FITNESS-TRACKER/
 |   |   |   |--waterIntakeController.js # Water intake tracking
 |   |   |   |--planController.js      # Workout plan operations
 |   |   |   |--subscriptionController.js # Manage subscription and premium features
+|   |   |   |--userController.js         # Getting and updating user info
 |   |   |--models/
 |   |   |   |--User.js                # User model
 |   |   |   |--Activity.js            # Model for tracking activities
@@ -62,6 +64,8 @@ PERSONAL-FITNESS-TRACKER/
 |   |   |   |--auth.js                # Test for creating new user and logging in 
 |   |   |--.env                       # Environment variables
 |   |   |--index.js                   # Main server file
+|   |   |--package-lock.json          
+|   |   |--package.json                 
 |   |--src/
 |   |   |--components/                  # Reusable UI Components
 |   |   |   |--Navbar/
