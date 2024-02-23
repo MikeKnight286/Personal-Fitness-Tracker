@@ -51,8 +51,8 @@ exports.requestReset = async (req, res) => {
 
     try {
         const resetToken = await User.generateResetToken(email);
-        const resetUrl = `${req.protocol}://localhost:3000/reset-password?token=${resetToken}`;
-
+        // Same host and password reset route as front-end
+        const resetUrl = `${req.protocol}://localhost:3000/password-reset?token=${resetToken}`;
 
         await sendEmail({
             email: user.email,

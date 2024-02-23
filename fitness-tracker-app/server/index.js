@@ -35,11 +35,10 @@ app.get('/', (req, res) => {
 });
 
 // Serves static files
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, '..', '..', 'build')));
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+  res.sendFile(path.resolve(__dirname, '..', '..', 'build', 'index.html'));
 });
-
 
 // Listening on the port
 app.listen(PORT, () => {

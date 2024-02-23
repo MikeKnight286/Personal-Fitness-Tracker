@@ -5,7 +5,6 @@ import Home from './pages/Home';
 import SignUp from './pages/Signup';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
-import Settings from './pages/Settings';
 import PasswordResetRequest from './pages/PasswordResetRequest';
 import PasswordReset from './pages/PasswordReset';
 import { AuthProvider } from './context/AuthContext';
@@ -20,7 +19,6 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/settings" element={<Settings />} />
           <Route path="/password-reset-request" element={<PasswordResetRequest />} />
           <Route path="/password-reset" element={<PasswordReset />} />
           {/* Define other routes as needed */}
