@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const pool = require('../config/db')
 
 // Get user profile
 exports.getUserProfile = async (req, res) => {
@@ -21,5 +22,16 @@ exports.updateUserProfile = async (req, res) => {
         res.json(updatedUserInfo);
     } catch (err) {
         res.status(400).send(err.message);
+    }
+};
+
+// Get all user profiles (admin-only)
+exports.getAllUsers = async (req, res) => {
+    try {
+        const { rows } = await pool.query('SELECT * FROM users');
+        res.json(rows);
+    } catch (error) {
+        console.error('Error fetching all users:', error.message);
+        res.status(500).send('Server error');
     }
 };

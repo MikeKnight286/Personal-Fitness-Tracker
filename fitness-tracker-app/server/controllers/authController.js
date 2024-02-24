@@ -72,6 +72,7 @@ exports.requestReset = async (req, res) => {
 exports.resetPassword = async (req, res) => {
     const { token, newPassword } = req.body;
     try {
+        // Requesting token and newPassword from user
         const user = await User.resetPassword(token, newPassword);
         res.status(200).send('Your password has been updated.');
     } catch (error) {

@@ -4,14 +4,20 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 
 function PasswordReset() {
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState(''); // Add state for confirm password
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
-    const token = searchParams.get('token'); 
+    const token = searchParams.get('token');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (password !== confirmPassword) {
+            alert('Passwords do not match.');
+            return; // Prevent form submission
+        }
         try {
-            await axios.post('http://localhost:3001/api/users/reset-password', { token, password });
+            // Posting token and newPassword to server
+            await axios.post('http://localhost:3001/api/users/reset-password', { token, newPassword: password });
             alert('Your password has been reset successfully');
             navigate('/login');
         } catch (error) {
@@ -29,6 +35,14 @@ function PasswordReset() {
                     placeholder="Enter your new password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
+                <input
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="Confirm your new password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     required
                 />
                 <button type="submit">Reset Password</button>

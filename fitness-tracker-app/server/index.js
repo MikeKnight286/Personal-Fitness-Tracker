@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5000;
 
 // Modularized Routes
 const userRoutes = require('./routes/userRoutes');
-// const activityRoutes = require('./routes/activityRoutes');
+const activityRoutes = require('./routes/activityRoutes');
 // const workoutRoutes = require('./routes/workoutRoutes');
 // const dietRoutes = require('./routes/dietRoutes');
 // const waterIntakeRoutes = require('./routes/waterIntakeRoutes');
@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Using modularized routes
 app.use('/api/users', userRoutes);
-// app.use('/api/activities', activityRoutes);
+app.use('/api/activities', activityRoutes);
 // app.use('/api/workouts', workoutRoutes);
 // app.use('/api/diets', dietRoutes);
 // app.use('/api/waterIntakes', waterIntakeRoutes);
@@ -41,8 +41,9 @@ app.get('*', (req, res) => {
 });
 
 // Listening on the port
-app.listen(PORT, () => {
+const server_port = app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
 module.exports = app;
+module.exports = server_port;

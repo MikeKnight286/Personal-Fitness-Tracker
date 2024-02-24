@@ -62,7 +62,9 @@ PERSONAL-FITNESS-TRACKER/
 |   |   |   |--subscriptionCheck.js   # Utility to check subscription status for premium features
 |   |   |   |--emailService.js        # Utility to send emails to users
 |   |   |--tests/
-|   |   |   |--auth.js                # Test for creating new user and logging in 
+|   |   |   |--auth.test.js                # Test for creating new user and logging in 
+|   |   |   |--emailService.test.js        # Test for sending email
+|   |   |--node_modules/
 |   |   |--.env                       # Environment variables
 |   |   |--index.js                   # Main server file
 |   |   |--package-lock.json          
@@ -82,6 +84,8 @@ PERSONAL-FITNESS-TRACKER/
 |   |   |   |--Dashboard.js
 |   |   |   |--Settings.js
 |   |   |   |--Login.js
+|   |   |   |--PasswordReset.js
+|   |   |   |--PasswordResetRequest.js
 |   |   |   |--Signup.js
 |   |   |   |--Premium.js               # Page for premium feature introduction and subscription
 |   |   |--services/                    # Services for HTTP requests (e.g., authentication, fetching data)
@@ -91,6 +95,7 @@ PERSONAL-FITNESS-TRACKER/
 |   |   |   |--dietService.js
 |   |   |   |--waterService.js
 |   |   |   |--planService.js
+|   |   |   |--userService.js
 |   |   |   |--subscriptionService.js   # Service for managing subscriptions
 |   |   |--hooks/                       # React hooks
 |   |   |--context/                     # Context API for global state management
@@ -98,6 +103,7 @@ PERSONAL-FITNESS-TRACKER/
 |   |   |   |--UserContext.js           # Manage user data and state
 |   |   |--App.js                       # Main application component
 |   |   |--index.js                     # Entry point for React, renders App component
+|   |   |--index.css                    
 |   |--.gitignore
 |   |--package-lock.json
 |   |--package.json

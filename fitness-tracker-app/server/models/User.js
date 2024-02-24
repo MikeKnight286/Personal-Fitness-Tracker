@@ -22,13 +22,13 @@ class User {
     }
 
     static async create(userData) {
-        const { username, email, password, firstName, lastName, dateOfBirth, gender, heightCm, weightKg, goal } = userData;
+        const { username, email, password, firstName, lastName, dateOfBirth, gender, heightCm, weightKg, goal, isAdmin = false, isPremium = false } = userData; // Default to false if not provided
         const hashedPassword = await bcrypt.hash(password, 10); // Hashing the password
 
         try {
             const { rows } = await pool.query(
-                'INSERT INTO users (username, email, password, first_name, last_name, date_of_birth, gender, height_cm, weight_kg, goal) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *',
-                [username, email, hashedPassword, firstName, lastName, dateOfBirth, gender, heightCm, weightKg, goal]
+                'INSERT INTO users (username, email, password, first_name, last_name, date_of_birth, gender, height_cm, weight_kg, goal, is_admin, is_premium) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *',
+                [username, email, hashedPassword, firstName, lastName, dateOfBirth, gender, heightCm, weightKg, goal, isAdmin, isPremium]
             );
             return rows[0];
         } catch (error) {
@@ -36,14 +36,13 @@ class User {
         }
     }
 
-    // For updating names, body metrics and goal
     static async update(id, updateData) {
-        // Dynamically build the update query based on provided data
-        const { firstName, lastName, gender, heightCm, weightKg, goal } = updateData;
+        // Include isAdmin and isPremium in the update, ensure this method is protected and only accessible by superadmins
+        const { firstName, lastName, gender, heightCm, weightKg, goal, isAdmin, isPremium } = updateData;
         try {
             const { rows } = await pool.query(
-                'UPDATE users SET first_name = $1, last_name = $2, gender = $3, height_cm = $4, weight_kg = $5, goal = $6 WHERE id = $7 RETURNING *',
-                [firstName, lastName, gender, heightCm, weightKg, goal, id]
+                'UPDATE users SET first_name = $1, last_name = $2, gender = $3, height_cm = $4, weight_kg = $5, goal = $6, is_admin = $7, is_premium = $8 WHERE id = $9 RETURNING *',
+                [firstName, lastName, gender, heightCm, weightKg, goal, isAdmin, isPremium, id]
             );
             return rows[0];
         } catch (error) {

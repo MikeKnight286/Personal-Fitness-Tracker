@@ -1,12 +1,35 @@
 const request = require('supertest');
-const app = require('server/index'); // Adjust this path to where your Express app is exported
+const app = require('..'); // Adjust this path to where your Express app is exported
 const pool = require('server/config/db'); // For database cleanup
 const testemail = process.env.TEST_EMAIL // Load test email from environment variables
+const server_port = require('../index')
 
 // Cleanup function to delete test users
 const cleanUpDatabase = async () => {
-    await pool.query('DELETE FROM users WHERE email = $1', [testemail]);
+  await pool.query('DELETE FROM users WHERE email IN ($1, $2, $3)', [testemail, 'regular@example.com', 'admin@example.com']);
 };
+
+// Utility function to make a user admin
+const makeUserAdmin = async (email) => {
+  console.log(`Attempting to make user admin: ${email}`);
+  const userRes = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+  if (userRes.rows.length === 0) {
+    console.error(`User not found with email: ${email}, cannot make admin.`);
+    return;
+  }
+  
+  await pool.query('UPDATE users SET is_admin = TRUE WHERE email = $1', [email]);
+  
+  const checkAdminRes = await pool.query('SELECT is_admin FROM users WHERE email = $1', [email]);
+  if (checkAdminRes.rows[0].is_admin) {
+    console.log(`User ${email} successfully made admin.`);
+  } else {
+    console.error(`Failed to make user ${email} admin.`);
+  }
+};
+
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 describe('Authentication Endpoints', () => {
   beforeAll(async () => {
@@ -40,11 +63,6 @@ describe('Authentication Endpoints', () => {
 describe('Password Reset Endpoints', () => {
   let resetToken; // Variable to store the reset token for use in resetting password
 
-  afterAll(async () => {
-    await cleanUpDatabase();
-    await pool.end(); // Properly close the pool connection after tests
-  });
-
   it('should request a password reset link for an existing user', async () => {
       // Assuming the user already exists from the previous test
       const res = await request(app)
@@ -61,7 +79,7 @@ describe('Password Reset Endpoints', () => {
       const dbResponse = await pool.query('SELECT reset_token FROM users WHERE email = $1', [testemail]);
       resetToken = dbResponse.rows[0].reset_token;
       expect(resetToken).not.toBeNull();
-  }, 10000);
+  }, 20000);
 
   it('should reset the password using the reset token', async () => {
       const newPassword = 'newSecurePassword123';
@@ -86,4 +104,71 @@ describe('Password Reset Endpoints', () => {
       expect(loginResponse.statusCode).toEqual(200);
       expect(loginResponse.headers).toHaveProperty('auth-token');
   }, 10000 );
+});
+
+describe('Admin Access Endpoints', () => {
+  let userToken; // Token for the regular user
+  let adminToken; // Token for the admin user
+
+  beforeAll(async () => {
+      // Create a regular user
+      await request(app).post('/api/users/register').send({
+          username: 'regularUser',
+          email: 'regular@example.com',
+          password: 'password123',
+      });
+
+      // Create another user to be made admin
+      await request(app).post('/api/users/register').send({
+          username: 'adminUser',
+          email: 'admin@example.com',
+          password: 'password123',
+      });
+
+      await sleep(3000); // Sleep for 3 seconds
+      // Make the second user an admin
+      await makeUserAdmin('admin@example.com');
+
+      // Login as the regular user to obtain a token
+      const userLoginRes = await request(app).post('/api/users/login').send({
+          email: 'regular@example.com',
+          password: 'password123',
+      });
+      userToken = userLoginRes.headers['auth-token'];
+
+      // Login as the admin user to obtain a token
+      const adminLoginRes = await request(app).post('/api/users/login').send({
+          email: 'admin@example.com',
+          password: 'password123',
+      });
+      console.log(`Admin login response: ${adminLoginRes.statusCode}, body: ${JSON.stringify(adminLoginRes.body)}`);
+      adminToken = adminLoginRes.headers['auth-token'];
+
+      // Log to ensure the tokens are not undefined
+      console.log(`User Token: ${userToken}`);
+      console.log(`Admin Token: ${adminToken}`);
+  }, 100000);
+
+  it('should deny access to a regular user for admin routes', async () => {
+      const res = await request(app)
+          .get('/api/users/admin/all-users') // Test admin route
+          .set('auth-token', userToken);
+      
+      expect(res.statusCode).toEqual(403);
+  },100000);
+
+  it('should allow access to an admin user for admin routes', async () => {
+      const res = await request(app)
+          .get('/api/users/admin/all-users') // Test admin route
+          .set('auth-token', adminToken);
+      
+      expect(res.statusCode).toEqual(200);
+  },100000);
+
+  afterAll(async () => {
+    // Cleanup: delete the test users
+    await cleanUpDatabase();
+    await pool.end(); // Close the pool connection after tests
+    server_port.close(); // Close the server after tests
+  });
 });
