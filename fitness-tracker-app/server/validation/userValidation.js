@@ -1,5 +1,6 @@
-const Joi = require('joi'); // for input validation
+const Joi = require('joi'); 
 
+// Input validation for registering user
 const registerValidation = (data) => {
     const schema = Joi.object({
         username: Joi.string().min(3).required(),
@@ -16,6 +17,7 @@ const registerValidation = (data) => {
     return schema.validate(data);
 };
 
+// Input validation for user logging in
 const loginValidation = (data) => {
     const schema = Joi.object({
         email: Joi.string().min(6).required().email(),

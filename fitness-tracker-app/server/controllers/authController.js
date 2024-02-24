@@ -17,7 +17,8 @@ exports.register = async (req, res) => {
 
         // Create user 
         const newUser = await User.create(req.body);
-        res.json({ user: newUser.id });
+        const newUserId = newUser.id;
+        res.json({ user: newUserId });
     } catch (err) {
         res.status(err.status || 500).send(err.message || 'Server error');
     }

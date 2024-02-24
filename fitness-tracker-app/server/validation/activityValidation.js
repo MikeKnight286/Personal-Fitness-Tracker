@@ -1,18 +1,7 @@
 const Joi = require('joi');
 
-// Validation for logging a user activity
-const logActivityValidation = (data) => {
-    const schema = Joi.object({
-        userId: Joi.number().required(),
-        activityId: Joi.number().required(),
-        duration: Joi.number().min(1).required(),
-        date: Joi.date().required(),
-    });
-    return schema.validate(data);
-};
-
-// Validation for adding a new activity (if needed)
-const addActivityValidation = (data) => {
+// Input validation for creating activity by admin
+const createActivityValidation = (data) => {
     const schema = Joi.object({
         name: Joi.string().min(3).required(),
         caloriesBurnedPerMinute: Joi.number().positive().required(),
@@ -20,7 +9,17 @@ const addActivityValidation = (data) => {
     return schema.validate(data);
 };
 
+// Input validation for adding activity by user
+const addUserActivityValidation = (data) => {
+    const schema = Joi.object({
+        userId: Joi.number().required(),
+        activityId: Joi.number().required(),
+        durationMinutes: Joi.number().required()
+    });
+    return schema.validate(data);
+};
+
 module.exports = {
-    logActivityValidation,
-    addActivityValidation,
+    createActivityValidation,
+    addUserActivityValidation
 };

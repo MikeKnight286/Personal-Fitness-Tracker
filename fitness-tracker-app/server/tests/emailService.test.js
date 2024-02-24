@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 const sendEmail = require('../utils/emailService'); // Adjust the path as necessary
 const testemail = process.env.TEST_EMAIL
-const server_port = require('..');
+const server_port  = require('..');
 
 // Mock nodemailer
 jest.mock('nodemailer');
