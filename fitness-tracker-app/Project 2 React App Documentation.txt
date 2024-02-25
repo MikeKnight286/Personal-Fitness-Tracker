@@ -1,4 +1,4 @@
-Dependencies Installation
+Dependencies Installation (Will be edited to Requirements.txt)
 
 In project root directory:
 To start app: npm start
@@ -28,42 +28,48 @@ PERSONAL-FITNESS-TRACKER/
 |   |--public/
 |   |--server/
 |   |   |--config/
-|   |   |   |--db.js                  # Database connection configuration
+|   |   |   |--db.js                     # Database connection configuration               
 |   |   |--validation/
-|   |   |   |--userValidation.js      # Input validation
+|   |   |   |--userValidation.js         # Input validation for authController funcs        DONE
+|   |   |   |--activityValidation.js     # Input validation for activityController funcs    DONE
 |   |   |--controllers/
-|   |   |   |--authController.js      # Authentication logic
-|   |   |   |--activityController.js  # Basic activity tracking operations
-|   |   |   |--workoutController.js   # Workout logs operations
-|   |   |   |--dietController.js      # Diet tracking operations
-|   |   |   |--waterIntakeController.js # Water intake tracking
-|   |   |   |--planController.js      # Workout plan operations
-|   |   |   |--subscriptionController.js # Manage subscription and premium features
-|   |   |   |--userController.js         # Getting and updating user info
+|   |   |   |--authController.js         # Authentication logic                             DONE 
+|   |   |   |--activityController.js     # Basic activity tracking operations               DONE
+|   |   |   |--workoutController.js      # Workout logs operations                          NOT DONE
+|   |   |   |--dietController.js         # Diet tracking operations                         NOT DONE
+|   |   |   |--waterIntakeController.js  # Water intake tracking                            NOT DONE
+|   |   |   |--planController.js         # Workout plan operations                          NOT DONE
+|   |   |   |--subscriptionController.js # Manage subscription and premium features         NOT DONE
+|   |   |   |--userController.js         # Getting and updating user info                   NOT DONE
+|   |   |   |--paymentController.js      # Processing payment                               NOT DONE
 |   |   |--models/
-|   |   |   |--User.js                # User model
-|   |   |   |--Activity.js            # Model for tracking activities
-|   |   |   |--Workout.js             # Workout log model
-|   |   |   |--Diet.js                # Diet log model
-|   |   |   |--WaterIntake.js         # Water intake model
-|   |   |   |--Plan.js                # Workout plan model
+|   |   |   |--User.js                   # User model (Register, Delete, PasswordReset)     DONE
+|   |   |   |--UserActivity.js           # User Activity model (Create activity by user)    DONE
+|   |   |   |--Activity.js               # Model for admins to create types of actvities    DONE
+|   |   |   |--Workout.js                # Workout log model                                NOT DONE
+|   |   |   |--Diet.js                   # Diet log model                                   NOT DONE
+|   |   |   |--WaterIntake.js            # Water intake model                               NOT DONE
+|   |   |   |--Plan.js                   # Workout plan model                               NOT DONE
 |   |   |--routes/
-|   |   |   |--userRoutes.js          # Routes for user profile and settings
-|   |   |   |--activityRoutes.js      # Routes for activity tracking
-|   |   |   |--workoutRoutes.js       # Routes for workout logs
-|   |   |   |--dietRoutes.js          # Routes for diet tracking
-|   |   |   |--waterIntakeRoutes.js   # Routes for water intake tracking
-|   |   |   |--planRoutes.js          # Routes for accessing workout plans
-|   |   |   |--subscriptionRoutes.js  # Routes for managing subscriptions
+|   |   |   |--userRoutes.js             # Routes for user profile and settings             DONE
+|   |   |   |--activityRoutes.js         # Routes for activity tracking                     DONE
+|   |   |   |--workoutRoutes.js          # Routes for workout logs                          NOT DONE
+|   |   |   |--dietRoutes.js             # Routes for diet tracking                         NOT DONE
+|   |   |   |--waterIntakeRoutes.js      # Routes for water intake tracking                 NOT DONE
+|   |   |   |--planRoutes.js             # Routes for accessing workout plans               NOT DONE
+|   |   |   |--subscriptionRoutes.js     # Routes for managing subscriptions                NOT DONE
 |   |   |--middleware/
-|   |   |   |--verifyToken.js         # Middleware for authentication and authorization by verifying token
+|   |   |   |--verifyToken.js            # For authentication and authorization             DONE
+|   |   |   |--adminCheck.js             # For verifying a user as an admin                 DONE
+|   |   |   |--premiumCheck.js           # For verifying if user has premium                NOT DONE
 |   |   |--utils/
-|   |   |   |--apiResponse.js         # Utility for standardizing API responses
-|   |   |   |--subscriptionCheck.js   # Utility to check subscription status for premium features
-|   |   |   |--emailService.js        # Utility to send emails to users
+|   |   |   |--apiResponse.js            # Utility for standardizing API responses          DONE
+|   |   |   |--makeUserAdmin.js          # For making a user admin                          DONE
+|   |   |   |--emailService.js           # Utility to send emails to users                  DONE
 |   |   |--tests/
-|   |   |   |--auth.test.js                # Test for creating new user and logging in 
-|   |   |   |--emailService.test.js        # Test for sending email
+|   |   |   |--auth.test.js              # For testing user auth logics                     DONE
+|   |   |   |--emailService.test.js      # For testing email services                       DONE
+|   |   |   |--activity.test.js          # For testing activity logics                      DONE
 |   |   |--node_modules/
 |   |   |--.env                       # Environment variables
 |   |   |--index.js                   # Main server file

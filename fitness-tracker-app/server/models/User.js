@@ -36,8 +36,8 @@ class User {
         }
     }
 
+    // Need to be seperated between regular user and admin user
     static async update(id, updateData) {
-        // Include isAdmin and isPremium in the update, ensure this method is protected and only accessible by superadmins
         const { firstName, lastName, gender, heightCm, weightKg, goal, isAdmin, isPremium } = updateData;
         try {
             const { rows } = await pool.query(
@@ -75,7 +75,7 @@ class User {
     static async resetPassword(token, newPassword) {
         const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-        // update the password when token is not yet expired 
+        // Update the password when token is not yet expired 
         try {
             const { rows } = await pool.query('UPDATE users SET password = $1, reset_token = NULL, reset_token_expire = NULL WHERE reset_token = $2 AND reset_token_expire > NOW() RETURNING *', [hashedPassword, token]);
             if (rows.length === 0) {

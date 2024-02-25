@@ -11,6 +11,7 @@ class Activity {
         return rows[0];
     }
 
+    // Admin-only method
     static async create(name, caloriesBurnedPerMinute) {
         const { rows } = await pool.query(
             'INSERT INTO activities (name, calories_burned_per_minute) VALUES ($1, $2) RETURNING *',
