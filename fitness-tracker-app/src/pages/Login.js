@@ -1,42 +1,44 @@
-import React, { useState, useContext } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
-import { Link } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth'; // Adjust the import path as needed
 
-function Login() {
+const Login = () => {
     const [credentials, setCredentials] = useState({ email: '', password: '' });
-    const { setUser } = useContext(AuthContext);
+    const { login } = useAuth();
     const navigate = useNavigate();
 
     const handleChange = (e) => {
-        setCredentials({ ...credentials, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setCredentials(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await axios.post('http://localhost:3001/api/users/login', credentials);
-            setUser({ user: data.user, token: data.token }); // Adjust according to your API response
+            await login(credentials);
             navigate('/dashboard');
         } catch (error) {
-            alert('Failed to login: ' + error.response.data);
+            alert('Failed to login: ' + error.message);
         }
     };
 
     return (
-        <div>
+        <form onSubmit={handleSubmit}>
             <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-                <input type="email" name="email" placeholder="Email" value={credentials.email} onChange={handleChange} required />
-                <input type="password" name="password" placeholder="Password" value={credentials.password} onChange={handleChange} required />
-                <button type="submit">Login</button>
-            </form>
-            <p>
-                <Link to="/password-reset-request">Forgot Password?</Link>
-            </p>
-        </div>
+            <div>
+                <label>Email:</label>
+                <input type="email" name="email" value={credentials.email} onChange={handleChange} required />
+            </div>
+            <div>
+                <label>Password:</label>
+                <input type="password" name="password" value={credentials.password} onChange={handleChange} required />
+            </div>
+            <button type="submit">Login</button>
+        </form>
     );
-}
+};
 
 export default Login;

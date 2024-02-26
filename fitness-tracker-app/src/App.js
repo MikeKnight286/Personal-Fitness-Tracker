@@ -7,7 +7,8 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import PasswordResetRequest from './pages/PasswordResetRequest';
 import PasswordReset from './pages/PasswordReset';
-import { AuthProvider } from './context/AuthContext';
+import ActivityLog from './pages/ActivityLog';
+import { AuthProvider } from './hooks/useAuth';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/password-reset-request" element={<PasswordResetRequest />} />
           <Route path="/password-reset" element={<PasswordReset />} />
+          <Route path="/activities" element={<ActivityLog />} />
           {/* Define other routes as needed */}
         </Routes>
       </AuthProvider>

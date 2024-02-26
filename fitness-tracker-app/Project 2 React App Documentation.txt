@@ -71,12 +71,12 @@ PERSONAL-FITNESS-TRACKER/
 |   |   |   |--emailService.test.js      # For testing email services                       DONE
 |   |   |   |--activity.test.js          # For testing activity logics                      DONE
 |   |   |--node_modules/
-|   |   |--.env                       # Environment variables
-|   |   |--index.js                   # Main server file
+|   |   |--.env                          # Environment variables
+|   |   |--index.js                      # Main server file
 |   |   |--package-lock.json          
 |   |   |--package.json                 
 |   |--src/
-|   |   |--components/                  # Reusable UI Components
+|   |   |--components/                   # Reusable UI Components
 |   |   |   |--Navbar/
 |   |   |   |--Footer/
 |   |   |   |--ActivityTracker/
@@ -85,7 +85,7 @@ PERSONAL-FITNESS-TRACKER/
 |   |   |   |--WaterTracker/
 |   |   |   |--WorkoutPlan/
 |   |   |   |--Subscription/
-|   |   |--pages/                       # Components representing entire pages
+|   |   |--pages/                        # Components representing entire pages
 |   |   |   |--Home.js
 |   |   |   |--Dashboard.js
 |   |   |   |--Settings.js
@@ -93,8 +93,8 @@ PERSONAL-FITNESS-TRACKER/
 |   |   |   |--PasswordReset.js
 |   |   |   |--PasswordResetRequest.js
 |   |   |   |--Signup.js
-|   |   |   |--Premium.js               # Page for premium feature introduction and subscription
-|   |   |--services/                    # Services for HTTP requests (e.g., authentication, fetching data)
+|   |   |   |--Premium.js                # Page for premium feature introduction and subscription
+|   |   |--services/                     # Services for HTTP requests (e.g., authentication, fetching data)
 |   |   |   |--authService.js
 |   |   |   |--activityService.js
 |   |   |   |--workoutService.js

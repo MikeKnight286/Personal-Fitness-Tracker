@@ -64,7 +64,7 @@ describe('Activity Endpoints', () => {
       .send({ name: 'Running', caloriesBurnedPerMinute: 10 });
     expect(res.statusCode).toEqual(201);
     expect(res.body).toHaveProperty('id');
-    activityId = res.body.id;
+    activityId = res.body.id; // Store activiity ID
     console.log(`Admin created a new activity with ID: ${activityId}`);
   });
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import authService from '../services/authService';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 function PasswordReset() {
@@ -17,7 +17,7 @@ function PasswordReset() {
         }
         try {
             // Posting token and newPassword to server
-            await axios.post('http://localhost:3001/api/users/reset-password', { token, newPassword: password });
+            await authService.resetPassword(token, password);
             alert('Your password has been reset successfully');
             navigate('/login');
         } catch (error) {

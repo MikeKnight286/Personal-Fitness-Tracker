@@ -1,15 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext';
+import { useAuth } from '../../hooks/useAuth'; // Adjust the path to match where your useAuth hook is located
 
 function NavBar() {
-    const { user, setUser } = useContext(AuthContext);
+    const { user, logout } = useAuth(); // Using useAuth hook for cleaner access to auth-related functionalities
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        // Assuming you're storing the token in localStorage
-        localStorage.removeItem('token');
-        setUser(null); // Clear user state
+        logout(); // Use logout method from useAuth
         navigate('/login'); // Redirect to login page after logout
     };
 
@@ -20,6 +18,7 @@ function NavBar() {
             {!user && <Link to="/login">Log In</Link>}
             {user && <Link to="/dashboard">Dashboard</Link>}
             {user && <Link to="/settings">Settings</Link>}
+            {user && <Link to="/activities">Activities</Link>}
             {user && <button onClick={handleLogout}>Log Out</button>}
             {/* Add more links or buttons for other features as needed */}
         </nav>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import authService from '../services/authService';
 
 function PasswordResetRequest() {
     const [email, setEmail] = useState('');
@@ -9,7 +9,7 @@ function PasswordResetRequest() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:3001/api/users/reset-request', { email });
+            await authService.passwordResetRequest(email);
             alert('If an account with that email exists, we have sent a password reset email.');
             navigate('/login');
         } catch (error) {
