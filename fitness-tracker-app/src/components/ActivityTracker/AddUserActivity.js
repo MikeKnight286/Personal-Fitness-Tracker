@@ -1,14 +1,13 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../hooks/useAuth';
 import activityService from '../../services/activityService';
-import { AuthContext } from '../../context/AuthContext';
 
-function AddUserActivity() { 
-    const { user } = useContext(AuthContext); 
-    const userId = user?.id; 
-
+function AddUserActivity() {
+    const { user } = useAuth(); // Use useAuth hook to access the current user
     const [userActivityData, setUserActivityData] = useState({
         activityId: '',
-        durationMinutes: ''
+        durationMinutes: '',
+        activityDate: '',
     });
     const [activities, setActivities] = useState([]);
 
@@ -18,25 +17,31 @@ function AddUserActivity() {
                 const data = await activityService.getAllActivities();
                 setActivities(data);
             } catch (error) {
-                alert(error.message);
+                alert(`Failed to fetch activities: ${error.message}`);
             }
         };
+
         fetchActivities();
-    }, []); 
+    }, []);
 
     const handleChange = (e) => {
-        setUserActivityData({ ...userActivityData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setUserActivityData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         try {
-            // Include userId when sending data
-            await activityService.addUserActivity({ ...userActivityData, userId });
+            await activityService.addUserActivity({ activityId: userActivityData.activityId, durationMinutes: userActivityData.durationMinutes, activityDate: userActivityData.activityDate });
             alert('Activity logged successfully');
-            // 
+            setUserActivityData({ activityId: '', durationMinutes: '' }); // Reset form after successful submission
         } catch (error) {
-            alert(error.message);
+            alert(`Failed to log activity: ${error.message}`);
+            console.log('Current user:', user);
         }
     };
 
@@ -44,9 +49,13 @@ function AddUserActivity() {
         <div>
             <h2>Log an Activity</h2>
             <form onSubmit={handleSubmit}>
-                <select name="activityId" value={userActivityData.activityId} onChange={handleChange} required>
+                <select 
+                    name="activityId" 
+                    value={userActivityData.activityId} 
+                    onChange={handleChange} 
+                    required>
                     <option value="">Select an Activity</option>
-                    {activities.map((activity) => (
+                    {activities.map(activity => (
                         <option key={activity.id} value={activity.id}>
                             {activity.name}
                         </option>
@@ -58,6 +67,13 @@ function AddUserActivity() {
                     value={userActivityData.durationMinutes}
                     onChange={handleChange}
                     placeholder="Duration in minutes"
+                    required
+                />
+                <input
+                    type="date"
+                    name="activityDate"
+                    value={userActivityData.activityDate}
+                    onChange={handleChange}
                     required
                 />
                 <button type="submit">Log Activity</button>

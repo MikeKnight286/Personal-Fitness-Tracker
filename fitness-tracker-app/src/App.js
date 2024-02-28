@@ -8,7 +8,7 @@ import Dashboard from './pages/Dashboard';
 import PasswordResetRequest from './pages/PasswordResetRequest';
 import PasswordReset from './pages/PasswordReset';
 import ActivityLog from './pages/ActivityLog';
-import { AuthProvider } from './hooks/useAuth';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth'; // Adjust the import path as needed
 
 const Login = () => {
@@ -26,18 +26,24 @@ const Login = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h2>Login</h2>
+        <div>
+            <form onSubmit={handleSubmit}>
+                <h2>Login</h2>
+                <div>
+                    <label>Email:</label>
+                    <input type="email" name="email" value={credentials.email} onChange={handleChange} required />
+                </div>
+                <div>
+                    <label>Password:</label>
+                    <input type="password" name="password" value={credentials.password} onChange={handleChange} required />
+                </div>
+                <button type="submit">Login</button>
+            </form>
+            {/* Add the password reset link below the form */}
             <div>
-                <label>Email:</label>
-                <input type="email" name="email" value={credentials.email} onChange={handleChange} required />
+                <Link to="/password-reset">Forgot Password?</Link> {/* Adjust the route as needed */}
             </div>
-            <div>
-                <label>Password:</label>
-                <input type="password" name="password" value={credentials.password} onChange={handleChange} required />
-            </div>
-            <button type="submit">Login</button>
-        </form>
+        </div>
     );
 };
 

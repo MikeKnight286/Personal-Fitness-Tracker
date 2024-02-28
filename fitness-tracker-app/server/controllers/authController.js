@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const pool = require('../config/db.js');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { registerValidation, loginValidation } = require('../validation/userValidation');
@@ -25,21 +26,30 @@ exports.register = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-    // Validate user input
-    const { error } = loginValidation(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    try{
+        // Validate user input
+        const { error } = loginValidation(req.body);
+        if (error) return res.status(400).send(error.details[0].message);
 
-    // Checking if the email exists
-    const user = await User.findByEmail(req.body.email);
-    if (!user) return res.status(400).send('Email or password is wrong');
+        // Checking if the email exists
+        const user = await User.findByEmail(req.body.email);
+        if (!user) return res.status(400).send('Email or password is wrong');
 
-    // Password is incorrect
-    const validPass = await bcrypt.compare(req.body.password, user.password);
-    if (!validPass) return res.status(400).send('Invalid password');
+        // Password is incorrect
+        const validPass = await bcrypt.compare(req.body.password, user.password);
+        if (!validPass) return res.status(400).send('Invalid password');
 
-    // Create and assign a token
-    const token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET);
-    res.header('auth-token', token).send('Logged in!');
+        // Create and assign a token
+        const token = jwt.sign({ id: user.id, isAdmin: user.is_admin }, process.env.TOKEN_SECRET);
+        res.json({ 
+            token: token, 
+            userId: user.id, 
+            isAdmin: user.is_admin
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+    }
 };
 
 // Handle password reset request

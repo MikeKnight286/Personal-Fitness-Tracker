@@ -40,14 +40,14 @@ exports.createActivity = async (req, res) => {
 };
 
 exports.addUserActivity = async (req, res) => {
-
     // Validation
     const { error } = addUserActivityValidation(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
     try {
-        const { userId, activityId, durationMinutes } = req.body;
-        const newUserActivity = await UserActivity.addActivity(userId, activityId, durationMinutes);
+        const userId = req.user.id; 
+        const { activityId, durationMinutes, activityDate } = req.body;
+        const newUserActivity = await UserActivity.addActivity(userId, activityId, durationMinutes, activityDate);
         res.status(201).json(newUserActivity);
     } catch (error) {
         res.status(500).send(error.message);
@@ -56,7 +56,7 @@ exports.addUserActivity = async (req, res) => {
 
 exports.getUserActivities = async (req, res) => {
     try {
-        const userId = req.params.userId; // Getting user id from url params
+        const userId = req.user.id; 
         const activities = await UserActivity.findAllByUserId(userId);
         res.json(activities);
     } catch (error) {

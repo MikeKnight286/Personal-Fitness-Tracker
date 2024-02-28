@@ -12,9 +12,9 @@ const createActivityValidation = (data) => {
 // Input validation for adding activity by user
 const addUserActivityValidation = (data) => {
     const schema = Joi.object({
-        userId: Joi.number().required(),
         activityId: Joi.number().required(),
-        durationMinutes: Joi.number().required()
+        durationMinutes: Joi.number().required(),
+        activityDate: Joi.date().required()
     });
     return schema.validate(data);
 };
