@@ -18,12 +18,11 @@ const CreateActivity = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // Assuming createActivity is correctly implemented in the activityService
+            // Create new activity by admin
             await activityService.createActivity(activityData);
             alert('Activity created successfully');
-            // Optionally, reset the form or redirect the user
+            // Reset the form 
             setActivityData({ name: '', caloriesBurnedPerMinute: '' });
-            // If you want to redirect the user, consider using the useNavigate hook from react-router-dom
         } catch (error) {
             alert(`Failed to create activity: ${error.message}`);
         }

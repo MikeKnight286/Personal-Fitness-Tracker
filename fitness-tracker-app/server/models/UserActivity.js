@@ -11,7 +11,7 @@ class UserActivity {
              FROM user_activities ua 
              JOIN activities a ON ua.activity_id = a.id 
              WHERE ua.user_id = $1
-             ORDER BY ua.activity_date DESC`, // Optionally order by activity_date or any other column
+             ORDER BY ua.activity_date DESC`, 
             [userId]
         );
         return rows.map(row => ({
@@ -43,6 +43,8 @@ class UserActivity {
         );
         return userActivityRows[0];
     }
+
+    // Need update user logged activity method
 }
 
 module.exports = UserActivity;

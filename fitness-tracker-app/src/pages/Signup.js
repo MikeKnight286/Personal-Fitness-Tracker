@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth'; // Adjust the import path as needed
+import { useAuth } from '../hooks/useAuth'; 
 
 const Signup = () => {
     const [userData, setUserData] = useState({
@@ -26,6 +26,7 @@ const Signup = () => {
             return;
         }
         try {
+            // Register user
             await register({ email: userData.email, password: userData.password });
             navigate('/dashboard');
         } catch (error) {

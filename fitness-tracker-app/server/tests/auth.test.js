@@ -45,7 +45,7 @@ describe('Password Reset Endpoints', () => {
   let resetToken; // Variable to store the reset token for use in resetting password
 
   it('should request a password reset link for an existing user', async () => {
-      // Assuming the user already exists from the previous test
+      // User already exists from the previous test endpoints
       const res = await request(app)
           .post('/api/users/reset-request')
           .send({ email: testemail });
@@ -55,7 +55,7 @@ describe('Password Reset Endpoints', () => {
 
       // In a real application, retrieve the token from the mocked email service
       // For testing purposes, access the password reset token from database
-      // Since there are no real emails in this test, simulate obtaining a token
+      // Since there are no real emails in this test, seperate emailService.test.js is created
       // This would be replaced with the method of retrieving the token
       const dbResponse = await pool.query('SELECT reset_token FROM users WHERE email = $1', [testemail]);
       resetToken = dbResponse.rows[0].reset_token;

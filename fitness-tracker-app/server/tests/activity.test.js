@@ -11,6 +11,7 @@ const cleanUpDatabase = async () => {
     await pool.query('DELETE FROM users WHERE email IN ($1, $2)', ['regular@example.com', 'admin@example.com']);
 };
 
+// Sleep function to put gaps between processes
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 describe('Activity Endpoints', () => {

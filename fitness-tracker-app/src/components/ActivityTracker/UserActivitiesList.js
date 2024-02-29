@@ -17,7 +17,7 @@ function UserActivitiesList() {
             }
 
             try {
-                const data = await activityService.getUserActivities(); 
+                const data = await activityService.getUserActivities(); // Fetch user-logged activities
                 setUserActivities(data);
                 setLoading(false);
             } catch (error) {

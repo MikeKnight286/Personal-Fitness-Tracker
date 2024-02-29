@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { AuthContext } from '../../context/AuthContext'; // Adjust the import path as needed
+import { AuthContext } from '../../context/AuthContext';
 import activityService from '../../services/activityService';
 
 const ActivitiesList = () => {

@@ -1,11 +1,11 @@
 import React, { createContext, useState, useEffect } from 'react';
-import authService from '../services/authService'; // Adjust the import path as needed
+import authService from '../services/authService'; 
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(() => {
-        // Initially, do not set user state until we verify it
+        // Initially, do not set user state until after verification
         return null;
     });
     const [loading, setLoading] = useState(true); // Initialize loading state to true
@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }) => {
 
     // Render a loading indicator or null while loading
     if (loading) {
-        return <div>Loading...</div>; // Or any other loading indicator you prefer
+        return <div>Loading...</div>; 
     }
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

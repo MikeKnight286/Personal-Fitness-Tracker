@@ -14,7 +14,7 @@ function AddUserActivity() {
     useEffect(() => {
         const fetchActivities = async () => {
             try {
-                const data = await activityService.getAllActivities();
+                const data = await activityService.getAllActivities(); // Fetch activities
                 setActivities(data);
             } catch (error) {
                 alert(`Failed to fetch activities: ${error.message}`);
@@ -36,9 +36,10 @@ function AddUserActivity() {
         e.preventDefault();
 
         try {
+            // Add user-logged activity
             await activityService.addUserActivity({ activityId: userActivityData.activityId, durationMinutes: userActivityData.durationMinutes, activityDate: userActivityData.activityDate });
             alert('Activity logged successfully');
-            setUserActivityData({ activityId: '', durationMinutes: '' }); // Reset form after successful submission
+            setUserActivityData({ activityId: '', durationMinutes: '', activityDate: '' }); // Reset form after successful submission
         } catch (error) {
             alert(`Failed to log activity: ${error.message}`);
             console.log('Current user:', user);

@@ -30,7 +30,7 @@ class AuthService {
     setSession(authData = null) {
         if (authData && authData.token) {
             // Debugging localStorage
-            console.log('Storing token in localStorage', authData.token);
+            // console.log('Storing token in localStorage', authData.token);
 
             localStorage.setItem('user', JSON.stringify(authData));
             this.apiClient.defaults.headers.common['Authorization'] = `Bearer ${authData.token}`;

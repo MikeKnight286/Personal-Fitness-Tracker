@@ -6,6 +6,7 @@ const server_port  = require('..');
 // Mock nodemailer
 jest.mock('nodemailer');
 
+// Helper function to send mock email
 const sendMailMock = jest.fn();
 nodemailer.createTransport.mockReturnValue({
     sendMail: sendMailMock,

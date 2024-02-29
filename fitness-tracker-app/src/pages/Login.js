@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth'; // Adjust the import path as needed
+import { useAuth } from '../hooks/useAuth'; 
 
 const Login = () => {
     const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -39,9 +39,10 @@ const Login = () => {
                 </div>
                 <button type="submit">Login</button>
             </form>
-            {/* Add the password reset link below the form */}
+
+            {/* Password reset link */}
             <div>
-                <Link to="/password-reset">Forgot Password?</Link> {/* Adjust the route as needed */}
+                <Link to="/password-reset">Forgot Password?</Link>
             </div>
         </div>
     );

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import { useAuth } from '../hooks/useAuth'; // Adjust the import path as needed
+import { useNavigate } from 'react-router-dom'; 
+import { useAuth } from '../hooks/useAuth'; 
 import ActivitiesList from '../components/ActivityTracker/ActivitiesList';
 import AddUserActivity from '../components/ActivityTracker/AddUserActivity';
 import UserActivitiesList from '../components/ActivityTracker/UserActivitiesList';

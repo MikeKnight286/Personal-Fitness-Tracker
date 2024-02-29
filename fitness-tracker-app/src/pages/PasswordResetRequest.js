@@ -9,6 +9,7 @@ function PasswordResetRequest() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            // Send password reset link to user's email
             await authService.passwordResetRequest(email);
             alert('If an account with that email exists, we have sent a password reset email.');
             navigate('/login');

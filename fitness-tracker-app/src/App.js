@@ -23,7 +23,6 @@ function App() {
           <Route path="/password-reset-request" element={<PasswordResetRequest />} />
           <Route path="/password-reset" element={<PasswordReset />} />
           <Route path="/activities" element={<ActivityLog />} />
-          {/* Define other routes as needed */}
         </Routes>
       </AuthProvider>
     </Router>
