@@ -76,37 +76,43 @@ PERSONAL-FITNESS-TRACKER/
 |   |   |--package-lock.json          
 |   |   |--package.json                 
 |   |--src/
-|   |   |--components/                   # Reusable UI Components
-|   |   |   |--Navbar/
-|   |   |   |--Footer/
+|   |   |--components/                   
+|   |   |   |--Navbar/                                                          
+|   |   |   |   |--NavBar.js                                                                REQUIRES UPDATES
+|   |   |   |--Footer/                                                                      NOT DONE
 |   |   |   |--ActivityTracker/
-|   |   |   |--WorkoutLogger/
-|   |   |   |--DietTracker/
-|   |   |   |--WaterTracker/
-|   |   |   |--WorkoutPlan/
-|   |   |   |--Subscription/
-|   |   |--pages/                        # Components representing entire pages
+|   |   |   |   |--ActivitiesList.js     # For showing available activites                  DONE
+|   |   |   |   |--AddUserActivity.js    # For user logging his activites                   DONE
+|   |   |   |   |--CreateActivity.js     # For admin creating new activities                DONE
+|   |   |   |   |--UserActivitesList.js  # For showing user logged activiites               DONE                                                             
+|   |   |   |--WorkoutLogger/                                                               NOT DONE
+|   |   |   |--DietTracker/                                                                 NOT DONE
+|   |   |   |--WaterTracker/                                                                NOT DONE
+|   |   |   |--WorkoutPlan/                                                                 NOT DONE
+|   |   |   |--Subscription/                                                                NOT DONE
+|   |   |--pages/                        
 |   |   |   |--Home.js
-|   |   |   |--Dashboard.js
-|   |   |   |--Settings.js
-|   |   |   |--Login.js
-|   |   |   |--PasswordReset.js
-|   |   |   |--PasswordResetRequest.js
-|   |   |   |--Signup.js
-|   |   |   |--Premium.js                # Page for premium feature introduction and subscription
-|   |   |--services/                     # Services for HTTP requests (e.g., authentication, fetching data)
-|   |   |   |--authService.js
-|   |   |   |--activityService.js
+|   |   |   |--ActivityLog.js            # Page for showing activity features               DONE
+|   |   |   |--Dashboard.js                                                                 NOT DONE
+|   |   |   |--Settings.js                                                                  NOT DONE
+|   |   |   |--Login.js                                                                     DONE
+|   |   |   |--PasswordReset.js                                                             DONE
+|   |   |   |--PasswordResetRequest.js                                                      DONE
+|   |   |   |--Signup.js                                                                    DONE
+|   |   |   |--Premium.js                                                                   NOT DONE
+|   |   |--services/                     
+|   |   |   |--authService.js           # Services for authentication, setting session      DONE
+|   |   |   |--activityService.js       # Services for activity                             DONE
 |   |   |   |--workoutService.js
 |   |   |   |--dietService.js
 |   |   |   |--waterService.js
 |   |   |   |--planService.js
 |   |   |   |--userService.js
 |   |   |   |--subscriptionService.js   # Service for managing subscriptions
-|   |   |--hooks/                       # React hooks
+|   |   |--hooks/      
+|   |   |   |--useAuth.js               # Using auth context with this hook                
 |   |   |--context/                     # Context API for global state management
-|   |   |   |--AuthContext.js
-|   |   |   |--UserContext.js           # Manage user data and state
+|   |   |   |--AuthContext.js           # For setting sessions for user auths
 |   |   |--App.js                       # Main application component
 |   |   |--index.js                     # Entry point for React, renders App component
 |   |   |--index.css                    
