@@ -1,4 +1,3 @@
-// server/models/Diet.js
 const pool = require('../config/db.js');
 
 class Diet {

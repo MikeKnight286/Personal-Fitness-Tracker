@@ -36,7 +36,7 @@ function AddUserActivity() {
         e.preventDefault();
 
         try {
-            // Add user-logged activity
+            // Add user-logged activity 
             await activityService.addUserActivity({ activityId: userActivityData.activityId, durationMinutes: userActivityData.durationMinutes, activityDate: userActivityData.activityDate });
             alert('Activity logged successfully');
             setUserActivityData({ activityId: '', durationMinutes: '', activityDate: '' }); // Reset form after successful submission
