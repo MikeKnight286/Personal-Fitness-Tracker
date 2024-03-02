@@ -9,8 +9,8 @@ const PORT = process.env.PORT || 5000;
 // Modularized Routes
 const userRoutes = require('./routes/userRoutes');
 const activityRoutes = require('./routes/activityRoutes');
+const dietRoutes = require('./routes/dietRoutes');
 // const workoutRoutes = require('./routes/workoutRoutes');
-// const dietRoutes = require('./routes/dietRoutes');
 // const waterIntakeRoutes = require('./routes/waterIntakeRoutes');
 // const planRoutes = require('./routes/planRoutes');
 // const subscriptionRoutes = require('./routes/subscriptionRoutes');
@@ -23,8 +23,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Using modularized routes
 app.use('/api/users', userRoutes);
 app.use('/api/activities', activityRoutes);
+app.use('/api/diets', dietRoutes);
 // app.use('/api/workouts', workoutRoutes);
-// app.use('/api/diets', dietRoutes);
 // app.use('/api/waterIntakes', waterIntakeRoutes);
 // app.use('/api/plans', planRoutes);
 // app.use('/api/subscriptions', subscriptionRoutes);

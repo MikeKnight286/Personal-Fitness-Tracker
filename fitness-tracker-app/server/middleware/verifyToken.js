@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 module.exports = function(req, res, next) {
     // Adjust the header to match the standard 'Authorization' header format
     const authHeader = req.header('Authorization');
-    // Standard format is "Bearer [token]", so we split by space and take the second part
+    // Standard format is "Bearer [token]", so split by space and take the second part
     const token = authHeader && authHeader.split(' ')[1];
 
     if (!token) {
