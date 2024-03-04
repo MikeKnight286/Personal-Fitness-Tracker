@@ -95,7 +95,7 @@ describe('Activity Endpoints', () => {
     const res = await request(app)
       .post('/api/activities/add-user-activity')
       .set('auth-token', userToken)
-      .send({ userId: regularUserId, activityId: activityId, durationMinutes: 30 });  // Update this to match the frontend
+      .send({ userId: regularUserId, activityId: activityId, durationMinutes: 30, activityDate: "2024-02-28" });  // Debug this part
     expect(res.statusCode).toEqual(201);
     expect(res.body).toHaveProperty('calories_burned');
   });
