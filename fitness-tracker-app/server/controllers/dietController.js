@@ -23,19 +23,21 @@ exports.addDietEntry = async (req, res) => {
         const newDietEntry = await Diet.addDietEntry(dietData);
         res.status(201).json(newDietEntry);
     } catch (error) {
+        console.error('Error adding diet entry:', error); // Debug inserting dietry data
         res.status(500).send(error.message);
     }
 };
 
 exports.updateDietEntry = async (req, res) => {
-    const { id } = req.params; // Diet id is passed in req.params
+    console.log('Update diet req params:',req.params); // Chech req.params
+    const { dietId } = req.params; // Diet id is passed in req.params
 
     // Validation
     const { error } = updateDietEntryValidation(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
     try {
-        const updatedDietEntry = await Diet.updateDietEntry(id, req.body);
+        const updatedDietEntry = await Diet.updateDietEntry(dietId, req.body);
         if (!updatedDietEntry) {
             return res.status(404).send('Diet entry not found');
         }
@@ -46,10 +48,10 @@ exports.updateDietEntry = async (req, res) => {
 };
 
 exports.deleteDietEntry = async (req, res) => {
-    const { id } = req.params;
+    const { dietId } = req.params;
 
     try {
-        const deletedDietEntry = await Diet.deleteDietEntry(id);
+        const deletedDietEntry = await Diet.deleteDietEntry(dietId);
         if (!deletedDietEntry) {
             return res.status(404).send('Diet entry not found');
         }

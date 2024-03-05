@@ -25,3 +25,8 @@ const updateDietEntryValidation = (data) => {
     // Same as addDietEntryValidation for simplicity;
     return addDietEntryValidation(data);
 };
+
+module.exports = {
+    addDietEntryValidation,
+    updateDietEntryValidation,
+};

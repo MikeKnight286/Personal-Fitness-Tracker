@@ -16,7 +16,7 @@ module.exports = function(req, res, next) {
         req.user = verified; // Sets the user details in req.user
 
         // Debugging log to show the token is verified and user is set
-        console.log('Token verified, user set in request:', req.user);
+        // console.log('Token verified, user set in request:', req.user);
 
         next();
     } catch (err) {
