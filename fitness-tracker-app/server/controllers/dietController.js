@@ -34,7 +34,17 @@ exports.updateDietEntry = async (req, res) => {
 
     // Validation
     const { error } = updateDietEntryValidation(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) {
+        console.log('Validation error details:', error.details); // Log detailed validation errors
+        return res.status(400).send({
+            message: "Validation error",
+            validation: error.details.map(detail => ({
+                message: detail.message,
+                path: detail.path,
+                type: detail.type
+            }))
+        });
+    }
 
     try {
         const updatedDietEntry = await Diet.updateDietEntry(dietId, req.body);

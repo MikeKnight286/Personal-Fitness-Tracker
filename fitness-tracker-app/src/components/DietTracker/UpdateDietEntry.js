@@ -68,8 +68,9 @@ const UpdateDietEntry = () => {
         e.preventDefault();
         setLoading(true);
 
-        // Format your data here as needed before sending it to the API
-        const formattedDietData = {
+        // Format data here as needed before sending it to the API
+        // Removed id, user_id, created_at, updated_at as it is not required in res.body
+        const { id, user_id, created_at, updated_at, ...formattedDietData }  = {
             ...dietData,
             food_name: dietData.food_name,
             calories: parseInt(dietData.calories, 10),
@@ -121,23 +122,23 @@ const UpdateDietEntry = () => {
             </div>
             <div>
                 <label>Fats (g):</label>
-                <input type="number" name="fats_g" value={dietData.fats_g || ''} onChange={handleChange} required />
+                <input type="number" name="fats_g" value={dietData.fats_g} onChange={handleChange} required />
             </div>
             <div>
                 <label>Fiber (g) (optional):</label>
-                <input type="number" name="fiber_g" value={dietData.fiber_g || ''} onChange={handleChange} placeholder="e.g., 5" />
+                <input type="number" name="fiber_g" value={dietData.fiber_g} onChange={handleChange} placeholder="e.g., 5" />
             </div>
             <div>
                 <label>Sugar (g) (optional):</label>
-                <input type="number" name="sugar_g" value={dietData.sugar_g || ''} onChange={handleChange} placeholder="e.g., 20" />
+                <input type="number" name="sugar_g" value={dietData.sugar_g} onChange={handleChange} placeholder="e.g., 20" />
             </div>
             <div>
                 <label>Sodium (mg) (optional):</label>
-                <input type="number" name="sodium_mg" value={dietData.sodium_mg || ''} onChange={handleChange} placeholder="e.g., 200" />
+                <input type="number" name="sodium_mg" value={dietData.sodium_mg} onChange={handleChange} placeholder="e.g., 200" />
             </div>
             <div>
                 <label>Cholesterol (mg) (optional):</label>
-                <input type="number" name="cholesterol_mg" value={dietData.cholesterol_mg || ''}  onChange={handleChange} placeholder="e.g., 0" />
+                <input type="number" name="cholesterol_mg" value={dietData.cholesterol_mg}  onChange={handleChange} placeholder="e.g., 0" />
             </div>
             <div>
                 <label>Serving Size (optional, e.g., "1 cup", "100g"):</label>
