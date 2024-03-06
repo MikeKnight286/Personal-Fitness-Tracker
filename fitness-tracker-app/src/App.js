@@ -8,6 +8,8 @@ import Dashboard from './pages/Dashboard';
 import PasswordResetRequest from './pages/PasswordResetRequest';
 import PasswordReset from './pages/PasswordReset';
 import ActivityLog from './pages/ActivityLog';
+import DietLog from './pages/DietLog';
+import UpdateDietEntry from './components/DietTracker/UpdateDietEntry';
 import { AuthProvider } from './context/AuthContext';
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
           <Route path="/password-reset-request" element={<PasswordResetRequest />} />
           <Route path="/password-reset" element={<PasswordReset />} />
           <Route path="/activities" element={<ActivityLog />} />
+          <Route path="/diets" element={<DietLog />} />
+          <Route path="/diets/update/:dietId" element={<UpdateDietEntry />} />
         </Routes>
       </AuthProvider>
     </Router>
