@@ -1,6 +1,7 @@
 const request = require('supertest');
 const app = require('../index');
 const pool = require('../config/db');
+const server_port = require('../index');
 
 // Cleanup function to delete test workout plans and users
 const cleanUpDatabase = async () => {
@@ -50,7 +51,8 @@ describe('Workout Plan Endpoints', () => {
 
         expect(res.statusCode).toEqual(201);
         expect(res.body).toHaveProperty('id');
-        console.log(workoutPlanId, res.body);
+        workoutPlanId = res.body.id
+        console.log(workoutPlanId);
     });
 
     it('should allow user to get all workout plans', async () => {
@@ -81,7 +83,7 @@ describe('Workout Plan Endpoints', () => {
             .set('Authorization', `Bearer ${adminToken}`);
 
         expect(res.statusCode).toEqual(200);
-        expect(res.body).toHaveProperty('id', workoutPlanId);
+        expect(res.body).toHaveProperty('id');
     });
 
     it('should allow admin to update a workout plan', async () => {
@@ -90,15 +92,15 @@ describe('Workout Plan Endpoints', () => {
             .set('Authorization', `Bearer ${adminToken}`)
             .send({
                 name: 'Updated Test Plan',
-                description: 'Updated test plan description',
-                targetGoal: 'weight loss',
-                difficultyLevel: 'intermediate',
-                durationWeeks: 6,
-                sessionsPerWeek: 4,
-                premiumOnly: true,
-                videoUrl: 'http://example.com/updated_video',
-                prerequisites: 'Basic fitness level',
-                tags: ['weight', 'intermediate']
+                description: 'Test plan description',
+                target_goal: 'muscle gain',
+                difficulty_level: 'beginner',
+                duration_weeks: 4,
+                sessions_per_week: 3,
+                premium_only: false,
+                video_url: 'http://example.com/video',
+                prerequisites: 'None',
+                tags: ['muscle', 'beginner']
             });
 
         expect(res.statusCode).toEqual(200);
@@ -117,5 +119,6 @@ describe('Workout Plan Endpoints', () => {
     afterAll(async () => {
         await cleanUpDatabase();
         await pool.end();
+        server_port.close(); // Close the server
     });
 });

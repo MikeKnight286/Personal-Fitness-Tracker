@@ -3,13 +3,13 @@ const { createWorkoutPlanValidation, updateWorkoutPlanValidation } = require('..
 
 exports.getAllWorkoutPlans = async (req, res) => {
     try {
-        const premiumOnly = req.query.premiumOnly === 'true';
-        const workoutPlans = await WorkoutPlans.findAll({ premiumOnly });
-        res.json(workoutPlans);
+      const premiumOnly = req.query.premiumOnly;
+      const workoutPlans = await WorkoutPlans.findAll({ premiumOnly });
+      res.json(workoutPlans);
     } catch (error) {
-        res.status(500).send(error.message);
+      res.status(500).send(error.message);
     }
-};
+  };
 
 exports.getWorkoutPlanById = async (req, res) => {
     try {
