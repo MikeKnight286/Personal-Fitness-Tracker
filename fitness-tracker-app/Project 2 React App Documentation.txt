@@ -1,11 +1,11 @@
 Dependencies Installation (Will be edited to Requirements.txt)
 
 In project root directory:
+To build app: npm run build
 To start app: npm start
 For routing : npm install react-router-dom -- learn 
 For state management :　npm install redux react-redux (If I choose Redux) -- learn 
 For fetching resources from backend: npm install axios react-router-dom
-
 
 In server directory: 
 To start backend server: node index.js
@@ -32,11 +32,11 @@ PERSONAL-FITNESS-TRACKER/
 |   |   |--validation/
 |   |   |   |--userValidation.js         # Input validation for authController funcs        DONE
 |   |   |   |--activityValidation.js     # Input validation for activityController funcs    DONE
+|   |   |   |--dietValidation.js         # Input validation for dietController funcs        DONE
 |   |   |--controllers/
 |   |   |   |--authController.js         # Authentication logic                             DONE 
 |   |   |   |--activityController.js     # Basic activity tracking operations               DONE
-|   |   |   |--workoutController.js      # Workout logs operations                          NOT DONE
-|   |   |   |--dietController.js         # Diet tracking operations                         NOT DONE
+|   |   |   |--dietController.js         # Diet tracking operations                         DONE 
 |   |   |   |--waterIntakeController.js  # Water intake tracking                            NOT DONE
 |   |   |   |--planController.js         # Workout plan operations                          NOT DONE
 |   |   |   |--subscriptionController.js # Manage subscription and premium features         NOT DONE
@@ -46,15 +46,13 @@ PERSONAL-FITNESS-TRACKER/
 |   |   |   |--User.js                   # User model (Register, Delete, PasswordReset)     DONE
 |   |   |   |--UserActivity.js           # User Activity model (Create activity by user)    DONE
 |   |   |   |--Activity.js               # Model for admins to create types of actvities    DONE
-|   |   |   |--Workout.js                # Workout log model                                NOT DONE
-|   |   |   |--Diet.js                   # Diet log model                                   NOT DONE
+|   |   |   |--Diet.js                   # Diet log model                                   DONE
 |   |   |   |--WaterIntake.js            # Water intake model                               NOT DONE
 |   |   |   |--Plan.js                   # Workout plan model                               NOT DONE
 |   |   |--routes/
 |   |   |   |--userRoutes.js             # Routes for user profile and settings             DONE
 |   |   |   |--activityRoutes.js         # Routes for activity tracking                     DONE
-|   |   |   |--workoutRoutes.js          # Routes for workout logs                          NOT DONE
-|   |   |   |--dietRoutes.js             # Routes for diet tracking                         NOT DONE
+|   |   |   |--dietRoutes.js             # Routes for diet tracking                         DONE
 |   |   |   |--waterIntakeRoutes.js      # Routes for water intake tracking                 NOT DONE
 |   |   |   |--planRoutes.js             # Routes for accessing workout plans               NOT DONE
 |   |   |   |--subscriptionRoutes.js     # Routes for managing subscriptions                NOT DONE
@@ -63,11 +61,11 @@ PERSONAL-FITNESS-TRACKER/
 |   |   |   |--adminCheck.js             # For verifying a user as an admin                 DONE
 |   |   |   |--premiumCheck.js           # For verifying if user has premium                NOT DONE
 |   |   |--utils/
-|   |   |   |--apiResponse.js            # Utility for standardizing API responses          DONE
 |   |   |   |--makeUserAdmin.js          # For making a user admin                          DONE
 |   |   |   |--emailService.js           # Utility to send emails to users                  DONE
 |   |   |--tests/
 |   |   |   |--auth.test.js              # For testing user auth logics                     DONE
+|   |   |   |--diet.test.js              # For testing user diet tracking logics            DONE
 |   |   |   |--emailService.test.js      # For testing email services                       DONE
 |   |   |   |--activity.test.js          # For testing activity logics                      DONE
 |   |   |--node_modules/
@@ -84,15 +82,18 @@ PERSONAL-FITNESS-TRACKER/
 |   |   |   |   |--ActivitiesList.js     # For showing available activites                  DONE
 |   |   |   |   |--AddUserActivity.js    # For user logging his activites                   DONE
 |   |   |   |   |--CreateActivity.js     # For admin creating new activities                DONE
-|   |   |   |   |--UserActivitesList.js  # For showing user logged activiites               DONE                                                             
-|   |   |   |--WorkoutLogger/                                                               NOT DONE
-|   |   |   |--DietTracker/                                                                 NOT DONE
+|   |   |   |   |--UserActivitesList.js  # For showing user logged activiites               DONE     
+|   |   |   |--DietTracker/                                                             
+|   |   |   |   |--DietList.js           # For showing user logged diet list (delete func)  DONE
+|   |   |   |   |--AddDietEntry.js       # For user logging his diets                       DONE
+|   |   |   |   |--UpdateDietEntry.js    # For updating user logged diets                   DONE                                                           
 |   |   |   |--WaterTracker/                                                                NOT DONE
 |   |   |   |--WorkoutPlan/                                                                 NOT DONE
 |   |   |   |--Subscription/                                                                NOT DONE
 |   |   |--pages/                        
 |   |   |   |--Home.js
 |   |   |   |--ActivityLog.js            # Page for showing activity features               DONE
+|   |   |   |--DietLog.js                # Page for showing diet tracking features          DONE
 |   |   |   |--Dashboard.js                                                                 NOT DONE
 |   |   |   |--Settings.js                                                                  NOT DONE
 |   |   |   |--Login.js                                                                     DONE
@@ -103,8 +104,7 @@ PERSONAL-FITNESS-TRACKER/
 |   |   |--services/                     
 |   |   |   |--authService.js           # Services for authentication, setting session      DONE
 |   |   |   |--activityService.js       # Services for activity                             DONE
-|   |   |   |--workoutService.js
-|   |   |   |--dietService.js
+|   |   |   |--dietService.js           # Services for diet tracking                        DONE
 |   |   |   |--waterService.js
 |   |   |   |--planService.js
 |   |   |   |--userService.js
@@ -120,6 +120,8 @@ PERSONAL-FITNESS-TRACKER/
 |   |--package-lock.json
 |   |--package.json
 
+
+!!! Name Mixed Up between Activity and Workout !!!
 
 Features
 

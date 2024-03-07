@@ -68,7 +68,6 @@ const UpdateDietEntry = () => {
         e.preventDefault();
         setLoading(true);
 
-        // Format data here as needed before sending it to the API
         // Removed id, user_id, created_at, updated_at as it is not required in res.body
         const { id, user_id, created_at, updated_at, ...formattedDietData }  = {
             ...dietData,

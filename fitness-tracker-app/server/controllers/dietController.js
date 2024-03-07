@@ -2,7 +2,7 @@ const Diet = require('../models/Diet');
 const { addDietEntryValidation, updateDietEntryValidation } = require('../validation/dietValidation'); 
 
 exports.getUserDiets = async (req, res) => {
-    const userId = req.user.id; 
+    const userId = req.user.id; // Use authenticated user's ID
     try {
         const diets = await Diet.findDietEntriesByUserId(userId);
         res.json(diets);
@@ -16,7 +16,17 @@ exports.addDietEntry = async (req, res) => {
 
     // Validation 
     const { error } = addDietEntryValidation(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) {
+        console.log('Validation error details:', error.details); // Log detailed validation errors
+        return res.status(400).send({
+            message: "Validation error",
+            validation: error.details.map(detail => ({
+                message: detail.message,
+                path: detail.path,
+                type: detail.type
+            }))
+        });
+    }
 
     try {
         const dietData = { userId, ...req.body };
@@ -29,7 +39,9 @@ exports.addDietEntry = async (req, res) => {
 };
 
 exports.updateDietEntry = async (req, res) => {
-    console.log('Update diet req params:',req.params); // Chech req.params
+    // // Check req.params
+    // console.log('Update diet req params:',req.params); 
+    
     const { dietId } = req.params; // Diet id is passed in req.params
 
     // Validation
