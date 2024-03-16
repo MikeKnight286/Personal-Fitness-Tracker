@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useAuth } from '../../hooks/useAuth';
 import { AuthContext } from '../../context/AuthContext';
 import workoutPlansService from '../../services/workoutplansService';
 
 const WorkoutPlansList = () => {
+    const { user } = useAuth(); // Using useAuth hook to access the current user's information
     const { loading: authLoading } = useContext(AuthContext); // Destructure loading state from AuthContext
     const [workoutPlans, setWorkoutPlans] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -47,6 +49,9 @@ const WorkoutPlansList = () => {
                     {workoutPlans.map((plan) => (
                         <li key={plan.name}>
                             {plan.name} - {plan.description}, Target Goal: {plan.target_goal}, Difficulty: {plan.difficulty_level}, Duration: {plan.duration_weeks} weeks, Sessions/Week: {plan.sessions_per_week}, {plan.premium_only ? 'Premium' : 'Free'}, Video URL: {plan.video_url}, Prerequisites: {plan.prerequisites}, Tags: {plan.tags.join(', ')}
+                            {user && user.role === 'admin' && ( // Conditionally render the delete button for admin users
+                                <button onClick={() => handleDelete(plan.id)}>Delete</button>
+                            )}
                         </li>
                     ))}
                 </ul>
