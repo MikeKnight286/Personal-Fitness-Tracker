@@ -33,28 +33,31 @@ PERSONAL-FITNESS-TRACKER/
 |   |   |   |--userValidation.js         # Input validation for authController funcs        DONE
 |   |   |   |--activityValidation.js     # Input validation for activityController funcs    DONE
 |   |   |   |--dietValidation.js         # Input validation for dietController funcs        DONE
+|   |   |   |--workoutplansValidation.js # Input validation for workoutplansController      DONE
 |   |   |--controllers/
 |   |   |   |--authController.js         # Authentication logic                             DONE 
+|   |   |   |--userController.js         # Getting and updating user info                   DONE
 |   |   |   |--activityController.js     # Basic activity tracking operations               DONE
 |   |   |   |--dietController.js         # Diet tracking operations                         DONE 
+|   |   |   |--workoutplansController.js # Workout plan operations                          DONE
 |   |   |   |--waterIntakeController.js  # Water intake tracking                            NOT DONE
-|   |   |   |--planController.js         # Workout plan operations                          NOT DONE
 |   |   |   |--subscriptionController.js # Manage subscription and premium features         NOT DONE
-|   |   |   |--userController.js         # Getting and updating user info                   NOT DONE
 |   |   |   |--paymentController.js      # Processing payment                               NOT DONE
 |   |   |--models/
 |   |   |   |--User.js                   # User model (Register, Delete, PasswordReset)     DONE
 |   |   |   |--UserActivity.js           # User Activity model (Create activity by user)    DONE
 |   |   |   |--Activity.js               # Model for admins to create types of actvities    DONE
 |   |   |   |--Diet.js                   # Diet log model                                   DONE
+|   |   |   |--WorkoutPlans.js           # Available workout plans model                    DONE
+|   |   |   |--WorkoutPlans.js           # User's linked workout plan model                 DONE
 |   |   |   |--WaterIntake.js            # Water intake model                               NOT DONE
-|   |   |   |--Plan.js                   # Workout plan model                               NOT DONE
 |   |   |--routes/
 |   |   |   |--userRoutes.js             # Routes for user profile and settings             DONE
 |   |   |   |--activityRoutes.js         # Routes for activity tracking                     DONE
 |   |   |   |--dietRoutes.js             # Routes for diet tracking                         DONE
+|   |   |   |--workoutplansRoutes.js     # Routes for admin editing workout plans           DONE
+|   |   |   |--userworkoutplansRoutes.js # Routes for user using workout plans              DONE
 |   |   |   |--waterIntakeRoutes.js      # Routes for water intake tracking                 NOT DONE
-|   |   |   |--planRoutes.js             # Routes for accessing workout plans               NOT DONE
 |   |   |   |--subscriptionRoutes.js     # Routes for managing subscriptions                NOT DONE
 |   |   |--middleware/
 |   |   |   |--verifyToken.js            # For authentication and authorization             DONE
@@ -68,6 +71,7 @@ PERSONAL-FITNESS-TRACKER/
 |   |   |   |--diet.test.js              # For testing user diet tracking logics            DONE
 |   |   |   |--emailService.test.js      # For testing email services                       DONE
 |   |   |   |--activity.test.js          # For testing activity logics                      DONE
+|   |   |   |--workoutplans.test.js      # For testing workout plans logics                 DONE
 |   |   |--node_modules/
 |   |   |--.env                          # Environment variables
 |   |   |--index.js                      # Main server file
