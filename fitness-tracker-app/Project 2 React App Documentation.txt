@@ -127,6 +127,8 @@ PERSONAL-FITNESS-TRACKER/
 
 !!! Name Mixed Up between Activity and Workout !!!
 
+!!! Requires reformatting the workout plan features !!! Current issues: Premium users can create their own plans but need moderation by admin, Need seperate functions for updating so that it does not affect original existing plan when user update his linked one due to cirumstances
+
 Features
 
 Free Features
