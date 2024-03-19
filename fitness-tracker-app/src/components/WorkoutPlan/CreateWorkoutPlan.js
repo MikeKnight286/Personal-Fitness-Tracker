@@ -25,12 +25,21 @@ const CreateWorkoutPlan = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        // Local Validation
+        if (workoutPlanData.name.length < 3) {
+            return alert('Name must be over 3 characters.');
+        }
+
+        if (workoutPlanData.sessions_per_week < 1 || workoutPlanData.sessions_per_week > 7) {
+            return alert('Sessions per week must be between 1 and 7.');
+        }
         try {
             // Prepare tags for submission
             const submissionData = {
                 ...workoutPlanData,
                 tags: workoutPlanData.tags.split(',').map(tag => tag.trim()) 
             };
+            console.log("Submitting workout plan data:", submissionData);
             // Create new workout plan
             await workoutPlansService.createWorkoutPlan(submissionData);
             alert('Workout plan created successfully');
@@ -48,6 +57,7 @@ const CreateWorkoutPlan = () => {
                 tags: ''
             });
         } catch (error) {
+            console.error("Failed to create workout plan:", error);
             alert(`Failed to create workout plan: ${error.message}`);
         }
     };

@@ -29,6 +29,18 @@ const WorkoutPlansList = () => {
             fetchWorkoutPlans();
         }
     }, [authLoading, premiumOnly]); // Depend on the authentication loading state and premiumOnly state
+    
+    const handleDelete = async (planId) => {
+        if (window.confirm('Are you sure you want to delete this workout plan?')) {
+            try {
+                await workoutPlansService.deleteWorkoutPlan(planId);
+                setWorkoutPlans(workoutPlans.filter(plan => plan.id !== planId));
+                alert('Workout plan deleted successfully.');
+            } catch (err) {
+                setError(err.message || 'An error occurred while deleting the workout plan.');
+            }
+        }
+    };
 
     if (authLoading || loading) return <div>Loading workout plans...</div>; // Show loading indicator if either authLoading or loading is true
     if (error) return <div>Error: {error}</div>;

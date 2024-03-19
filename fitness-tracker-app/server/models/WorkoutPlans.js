@@ -60,7 +60,18 @@ class WorkoutPlans {
       const { rows } = await pool.query(query);
       return rows[0];
     } catch (err) {
-      throw new Error(err.message);
+      switch (err.code) {
+        case '23505': // unique_violation
+          throw new Error(`A workout plan with the given name (${name}) already exists.`);
+        case '23503': // foreign_key_violation
+          throw new Error(`Foreign key violation: ${err.detail}`);
+        case '23502': // not_null_violation
+          throw new Error(`Missing required field: ${err.column}`);
+        case '22P02': // invalid_text_representation, e.g., wrong data type
+          throw new Error(`Invalid input syntax for field: ${err.column}`);
+        default:
+          throw new Error(`An unexpected database error occurred: ${err.message}`);
+      }
     }
   }
 

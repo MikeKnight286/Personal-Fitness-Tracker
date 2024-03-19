@@ -20,6 +20,7 @@ function NavBar() {
             {user && <Link to="/settings">Settings</Link>}
             {user && <Link to="/activities">Activities</Link>}
             {user && <Link to="/diets">Diets</Link>}
+            {user && <Link to="/workoutplans">Workout Plans</Link>}
             {user && <button onClick={handleLogout}>Log Out</button>}
             {/* Will add more links later*/}
         </nav>

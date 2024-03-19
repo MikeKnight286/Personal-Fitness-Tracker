@@ -10,6 +10,8 @@ import PasswordReset from './pages/PasswordReset';
 import ActivityLog from './pages/ActivityLog';
 import DietLog from './pages/DietLog';
 import UpdateDietEntry from './components/DietTracker/UpdateDietEntry';
+import WorkoutPlanPage from './pages/WorkoutPlanPage';
+import UpdateWorkoutPlan from './components/WorkoutPlan/UpdateWorkoutPlan'
 import { AuthProvider } from './context/AuthContext';
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
           <Route path="/activities" element={<ActivityLog />} />
           <Route path="/diets" element={<DietLog />} />
           <Route path="/diets/update/:dietId" element={<UpdateDietEntry />} />
+          <Route path="/workoutplans" element={<WorkoutPlanPage />} />
+          <Route path="/workoutplans/update/:planId" element={<UpdateWorkoutPlan />} />
         </Routes>
       </AuthProvider>
     </Router>
