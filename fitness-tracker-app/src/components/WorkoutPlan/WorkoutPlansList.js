@@ -10,7 +10,6 @@ const WorkoutPlansList = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [premiumOnly, setPremiumOnly] = useState(false); // State to handle premium only filter
-
     useEffect(() => {
         if (!authLoading) {
             const fetchWorkoutPlans = async () => {
@@ -29,7 +28,7 @@ const WorkoutPlansList = () => {
             fetchWorkoutPlans();
         }
     }, [authLoading, premiumOnly]); // Depend on the authentication loading state and premiumOnly state
-    
+
     const handleDelete = async (planId) => {
         if (window.confirm('Are you sure you want to delete this workout plan?')) {
             try {
@@ -44,7 +43,6 @@ const WorkoutPlansList = () => {
 
     if (authLoading || loading) return <div>Loading workout plans...</div>; // Show loading indicator if either authLoading or loading is true
     if (error) return <div>Error: {error}</div>;
-
     return (
         <div>
             <h2>Workout Plans List</h2>
@@ -61,7 +59,7 @@ const WorkoutPlansList = () => {
                     {workoutPlans.map((plan) => (
                         <li key={plan.name}>
                             {plan.name} - {plan.description}, Target Goal: {plan.target_goal}, Difficulty: {plan.difficulty_level}, Duration: {plan.duration_weeks} weeks, Sessions/Week: {plan.sessions_per_week}, {plan.premium_only ? 'Premium' : 'Free'}, Video URL: {plan.video_url}, Prerequisites: {plan.prerequisites}, Tags: {plan.tags.join(', ')}
-                            {user && user.role === 'admin' && ( // Conditionally render the delete button for admin users
+                            {user && user.isAdmin === true && ( // Conditionally render the delete button for admin users
                                 <button onClick={() => handleDelete(plan.id)}>Delete</button>
                             )}
                         </li>

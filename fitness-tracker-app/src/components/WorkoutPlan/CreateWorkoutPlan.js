@@ -27,7 +27,7 @@ const CreateWorkoutPlan = () => {
         e.preventDefault();
         // Local Validation
         if (workoutPlanData.name.length < 3) {
-            return alert('Name must be over 3 characters.');
+            return alert('Name must be at least 3 characters.');
         }
 
         if (workoutPlanData.sessions_per_week < 1 || workoutPlanData.sessions_per_week > 7) {
