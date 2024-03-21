@@ -55,16 +55,44 @@ const WorkoutPlansList = () => {
                 Show Premium Plans Only
             </label>
             {workoutPlans.length > 0 ? (
-                <ul>
-                    {workoutPlans.map((plan) => (
-                        <li key={plan.name}>
-                            {plan.name} - {plan.description}, Target Goal: {plan.target_goal}, Difficulty: {plan.difficulty_level}, Duration: {plan.duration_weeks} weeks, Sessions/Week: {plan.sessions_per_week}, {plan.premium_only ? 'Premium' : 'Free'}, Video URL: {plan.video_url}, Prerequisites: {plan.prerequisites}, Tags: {plan.tags.join(', ')}
-                            {user && user.isAdmin === true && ( // Conditionally render the delete button for admin users
-                                <button onClick={() => handleDelete(plan.id)}>Delete</button>
-                            )}
-                        </li>
-                    ))}
-                </ul>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Target Goal</th>
+                            <th>Difficulty</th>
+                            <th>Duration (Weeks)</th>
+                            <th>Sessions/Week</th>
+                            <th>Type</th>
+                            <th>Video URL</th>
+                            <th>Prerequisites</th>
+                            <th>Tags</th>
+                            {user && user.isAdmin === true && <th>Actions</th>}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {workoutPlans.map((plan) => (
+                            <tr key={plan.id || plan.name}>
+                                <td>{plan.name}</td>
+                                <td>{plan.description}</td>
+                                <td>{plan.target_goal}</td>
+                                <td>{plan.difficulty_level}</td>
+                                <td>{plan.duration_weeks}</td>
+                                <td>{plan.sessions_per_week}</td>
+                                <td>{plan.premium_only ? 'Premium' : 'Free'}</td>
+                                <td><a href={plan.video_url} target="_blank" rel="noopener noreferrer">View</a></td>
+                                <td>{plan.prerequisites}</td>
+                                <td>{plan.tags.join(', ')}</td>
+                                {user && user.isAdmin === true && (
+                                    <td>
+                                        <button onClick={() => handleDelete(plan.id)}>Delete</button>
+                                    </td>
+                                )}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             ) : (
                 <p>No workout plans found.</p>
             )}
