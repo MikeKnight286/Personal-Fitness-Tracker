@@ -125,7 +125,7 @@ PERSONAL-FITNESS-TRACKER/
 |   |--package.json
 
 
-!!! Name Mixed Up between Activity and Workout !!!
+!!! Currently user has to log activity manually. Will make it so that it can track the activity passicely !!!
 
 !!! Requires reformatting the workout plan features !!! Current issues: Premium users can create their own plans but need moderation by admin, Need seperate functions for updating so that it does not affect original existing plan when user update his linked one due to cirumstances
 
